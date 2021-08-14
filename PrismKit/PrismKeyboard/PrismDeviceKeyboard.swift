@@ -44,13 +44,12 @@ public final class PrismDeviceKeyboard: PrismDevice {
         }
 
         let keyboardKeyNames = model == .perKey ? PrismDeviceKeyboard.perKeyNames : PrismDeviceKeyboard.perKeyGS65KeyNames
-        let keycodeArray = (model == .perKey ? PrismDeviceKeyboard.perKeyCodes : PrismDeviceKeyboard.perKeyGS65KeyCodes)
+        let keycodeArray = (model == .perKey ? PrismDeviceKeyboard.perKeyRegionKeyCodes : PrismDeviceKeyboard.perKeyGS65RegionKeyCodes)
 
         for (rowIndex, row) in keycodeArray.enumerated() {
-            for (columnIndex, keycode) in row.enumerated() {
+            for (columnIndex, value) in row.enumerated() {
                 let keySymbol = keyboardKeyNames[rowIndex][columnIndex]
-                let region = getRegionKey(keySymbol, keycode: keycode)
-                let key = PrismKey(name: keySymbol, region: region, keycode: keycode)
+                let key = PrismKey(name: keySymbol, region: value.0, keycode: value.1)
                 keys.append(key)
             }
         }
