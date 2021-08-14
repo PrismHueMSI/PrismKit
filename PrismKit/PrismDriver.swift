@@ -7,17 +7,18 @@
 //
 // From https://github.com/Sherlouk/Codedeck/blob/master/Sources/HIDSwift/HIDDeviceMonitor.swift
 
-import Cocoa
 import IOKit.hid
+import Combine
 
-public class PrismDriver: NSObject {
+public class PrismDriver {
 
     // MARK: Public
 
-    public static let shared = PrismDriver()
-    public var currentDevice: PrismDevice?
-    public var devices = [PrismDevice]()
+    public static let shared: PrismDriver = .init()
 
+    public var deviceSubject: PassthroughSubject<PrismDevice, Never> = .init()
+    public var deviceRemovalSubject: PassthroughSubject<PrismDevice, Never> = .init()
+    
     // MARK: Protected
 
     internal var models = PrismDeviceModel.allCases.map({ $0.productInformation() })
@@ -26,13 +27,16 @@ public class PrismDriver: NSObject {
 
     private var monitoringThread: Thread?
 
-    private override init() {
-        super.init()
-        monitoringThread = Thread(target: self, selector: #selector(start), object: nil)
-        monitoringThread?.start()
+    private init() {}
+
+    public func start() {
+        if monitoringThread == nil {
+            monitoringThread = Thread(target: self, selector: #selector(startInternal), object: nil)
+            monitoringThread?.start()
+        }
     }
 
-    @objc func start() {
+    @objc private func startInternal() {
         let manager = IOHIDManagerCreate(kCFAllocatorDefault, IOOptionBits(kIOHIDOptionsTypeNone))
         manager.setDeviceMatchingMultiple(products: models)
         manager.scheduleWithRunLoop(with: CFRunLoopGetCurrent())
@@ -68,9 +72,7 @@ public class PrismDriver: NSObject {
             if prismDevice.isKeyboardDevice {
                 prismDevice = try PrismDeviceKeyboard(device: rawDevice)
             }
-            self.devices.append(prismDevice)
-            Log.debug("Added device: \(prismDevice)")
-            NotificationCenter.default.post(name: .prismDeviceAdded, object: prismDevice)
+            deviceSubject.send(prismDevice)
         } catch {
             Log.error("\(error)")
         }
@@ -79,14 +81,7 @@ public class PrismDriver: NSObject {
     private func deviceRemoved(rawDevice: IOHIDDevice) {
         do {
             let prismDevice = try PrismDevice(device: rawDevice)
-            let deviceIndex = devices.firstIndex { device in
-                prismDevice.identification == device.identification
-            }
-            if let deviceInArray = deviceIndex {
-                self.devices.remove(at: deviceInArray)
-                Log.debug("Removed device: \(prismDevice)")
-                NotificationCenter.default.post(name: .prismDeviceRemoved, object: deviceInArray)
-            }
+            deviceRemovalSubject.send(prismDevice)
         } catch {
             Log.error("\(error)")
         }
@@ -95,9 +90,4 @@ public class PrismDriver: NSObject {
     deinit {
         stop()
     }
-}
-
-public extension Notification.Name {
-    static let prismDeviceAdded = Notification.Name(rawValue: "prismDeviceAdded")
-    static let prismDeviceRemoved = Notification.Name(rawValue: "prismDeviceRemoved")
 }

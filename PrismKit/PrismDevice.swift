@@ -9,20 +9,21 @@
 import Foundation
 
 public class PrismDevice {
-
-    let commandMutex = DispatchQueue(label: "prism-command")
-
     public typealias RawDevice = WriteDevice & FeatureReportDevice
 
     // MARK: Device information
 
     private let device: RawDevice
-    public let identification: Int
+    public let id: Int
     public let name: String
     public let vendorId: Int
     public let versionNumber: Int
     public let productId: Int
     public let primaryUsagePage: Int
+
+    // Internal
+
+    internal let commandMutex = DispatchQueue(label: "prism-device-mutex")
 
     // MARK: PrismDeviceModel
 
@@ -33,10 +34,7 @@ public class PrismDevice {
                 $0.versionNumber == self.versionNumber &&
                 $0.primaryUsagePage == self.primaryUsagePage
         })
-        guard let model = product else {
-            return .unknown
-        }
-        return model
+        return product ?? .unknown
     }
 
     public var isKeyboardDevice: Bool {
@@ -45,7 +43,7 @@ public class PrismDevice {
 
     internal init(device: IOHIDDevice) throws {
         self.device = device
-        identification = try device.getProperty(key: kIOHIDLocationIDKey)
+        id = try device.getProperty(key: kIOHIDLocationIDKey)
         name = try device.getProperty(key: kIOHIDProductKey)
         vendorId = try device.getProperty(key: kIOHIDVendorIDKey)
         productId = try device.getProperty(key: kIOHIDProductIDKey)
@@ -54,14 +52,14 @@ public class PrismDevice {
     }
 
     public func update(forceUpdate: Bool = false) {
-        Log.error("Update unknown device not implemented for: \(name):\(identification)")
+        Log.error("Update unknown device not implemented for: \(name):\(id)")
         fatalError("Subclasses need to implement the \(#function) method.")
     }
 }
 
 // MARK: Send Feature Report / Write
 
-extension PrismDevice {
+internal extension PrismDevice {
     func sendFeatureReport(data: Data) -> IOReturn {
         return device.sendFeatureReport(data: data)
     }
@@ -75,7 +73,7 @@ extension PrismDevice {
 
 extension PrismDevice: Equatable {
     public static func == (lhs: PrismDevice, rhs: PrismDevice) -> Bool {
-        lhs.identification == rhs.identification
+        lhs.id == rhs.id
     }
 }
 
@@ -85,7 +83,7 @@ extension PrismDevice: CustomStringConvertible {
     public var description: String {
         var description = ""
         description += "\nPrismDevice: (\(name))\n"
-        description += "\tID: \(identification)\n"
+        description += "\tID: \(id)\n"
         description += "\tVendor ID: \(vendorId)\n"
         description += "\tProduct ID: \(productId)\n"
         description += "\tPrimary Usage: \(primaryUsagePage)\n"

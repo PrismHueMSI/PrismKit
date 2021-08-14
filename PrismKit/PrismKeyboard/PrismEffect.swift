@@ -9,9 +9,9 @@
 import Foundation
 
 public enum PrismDirection: UInt8 {
-    case xyAxis = 0
-    case xAxis = 1
-    case yAxis = 2
+    case xy = 0
+    case x = 1
+    case y = 2
 }
 
 public enum PrismControl: UInt8 {
@@ -21,22 +21,22 @@ public enum PrismControl: UInt8 {
 
 public final class PrismEffect: NSObject {
     public let identifier: UInt8
-    public var start: PrismRGB = PrismRGB()
+    public var start = PrismRGB()
     public var transitions: [PrismTransition]
     public var duration: UInt16 = 0x12c
-    public var waveActive: Bool = false {
+    public var waveActive = false {
         didSet {
             if !waveActive {
-                direction = .xyAxis
+                direction = .xy
                 control = .inward
-                origin = PrismPoint()
+                origin = CGPoint()
                 pulse = 100
             }
         }
     }
-    public var direction: PrismDirection = .xyAxis
-    public var control: PrismControl = .inward
-    public var origin: PrismPoint = PrismPoint()
+    public var direction = PrismDirection.xy
+    public var control = PrismControl.inward
+    public var origin = CGPoint()
     public var pulse: UInt16 = 100
 
     public init(identifier: UInt8, transitions: [PrismTransition]) {
@@ -69,7 +69,7 @@ public extension PrismEffect {
         hasher.combine(waveActive)
         hasher.combine(direction)
         hasher.combine(control)
-        hasher.combine(origin)
+        hasher.combine(Int(origin.x) + Int(origin.y))
         hasher.combine(duration)
         hasher.combine(pulse)
         hasher.combine(transitions)
@@ -90,9 +90,9 @@ extension PrismEffect: Codable {
         self.init(identifier: identifier, transitions: transitions)
         self.start = try container.decode(PrismRGB.self, forKey: .start)
         self.waveActive = try container.decode(Bool.self, forKey: .waveActive)
-        self.direction = PrismDirection(rawValue: try container.decode(UInt8.self, forKey: .direction))!
-        self.control = PrismControl(rawValue: try container.decode(UInt8.self, forKey: .control))!
-        self.origin = try container.decode(PrismPoint.self, forKey: .origin)
+        self.direction = PrismDirection(rawValue: try container.decode(UInt8.self, forKey: .direction)) ?? .x
+        self.control = PrismControl(rawValue: try container.decode(UInt8.self, forKey: .control)) ?? .inward
+        self.origin = try container.decode(CGPoint.self, forKey: .origin)
         self.pulse = try container.decode(UInt16.self, forKey: .pulse)
         self.duration = try container.decode(UInt16.self, forKey: .duration)
     }

@@ -16,18 +16,19 @@
 		1320F0F326BD1EC0002AA2EF /* PrismDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0E726BD1EC0002AA2EF /* PrismDriver.swift */; };
 		1320F0F426BD1EC0002AA2EF /* PrismDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0E826BD1EC0002AA2EF /* PrismDeviceModel.swift */; };
 		1320F0F526BD1EC0002AA2EF /* PrismDeviceKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EA26BD1EC0002AA2EF /* PrismDeviceKeyboard.swift */; };
-		1320F0F626BD1EC0002AA2EF /* PrismDevicePerKeyModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EB26BD1EC0002AA2EF /* PrismDevicePerKeyModes.swift */; };
-		1320F0F726BD1EC0002AA2EF /* PrismDeviceKeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EC26BD1EC0002AA2EF /* PrismDeviceKeyboardLayout.swift */; };
+		1320F0F626BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EB26BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift */; };
+		1320F0F726BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EC26BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift */; };
 		1320F0F826BD1EC0002AA2EF /* PrismDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0ED26BD1EC0002AA2EF /* PrismDevice.swift */; };
 		1320F10326BD1F2C002AA2EF /* PrismEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FB26BD1F2C002AA2EF /* PrismEffect.swift */; };
 		1320F10526BD1F2C002AA2EF /* PrismTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FD26BD1F2C002AA2EF /* PrismTransition.swift */; };
 		1320F10626BD1F2C002AA2EF /* PrismPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FE26BD1F2C002AA2EF /* PrismPreset.swift */; };
 		1320F10726BD1F2C002AA2EF /* PrismKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FF26BD1F2C002AA2EF /* PrismKey.swift */; };
-		1320F10826BD1F2C002AA2EF /* PrismPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10026BD1F2C002AA2EF /* PrismPoint.swift */; };
+		1320F10826BD1F2C002AA2EF /* CGPoint+PrismPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10026BD1F2C002AA2EF /* CGPoint+PrismPoint.swift */; };
 		1320F10926BD1F2C002AA2EF /* PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10126BD1F2C002AA2EF /* PrismColor.swift */; };
 		1320F11326BD203B002AA2EF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F11126BD202E002AA2EF /* IOKit.framework */; platformFilter = maccatalyst; };
 		1320F11626BD22E5002AA2EF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F11526BD22E5002AA2EF /* Log.swift */; };
 		13214A2F26BE241500997A7A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13214A2E26BE241500997A7A /* main.swift */; };
+		135FBEE526C477BB0075B6CC /* NSColor+PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135FBEE426C477BB0075B6CC /* NSColor+PrismColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,19 +55,20 @@
 		1320F0E726BD1EC0002AA2EF /* PrismDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDriver.swift; sourceTree = "<group>"; };
 		1320F0E826BD1EC0002AA2EF /* PrismDeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDeviceModel.swift; sourceTree = "<group>"; };
 		1320F0EA26BD1EC0002AA2EF /* PrismDeviceKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDeviceKeyboard.swift; sourceTree = "<group>"; };
-		1320F0EB26BD1EC0002AA2EF /* PrismDevicePerKeyModes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDevicePerKeyModes.swift; sourceTree = "<group>"; };
-		1320F0EC26BD1EC0002AA2EF /* PrismDeviceKeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDeviceKeyboardLayout.swift; sourceTree = "<group>"; };
+		1320F0EB26BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PrismDeviceKeyboard+PerKeyModes.swift"; sourceTree = "<group>"; };
+		1320F0EC26BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PrismDeviceKeyboard+Utils.swift"; sourceTree = "<group>"; };
 		1320F0ED26BD1EC0002AA2EF /* PrismDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDevice.swift; sourceTree = "<group>"; };
 		1320F0FB26BD1F2C002AA2EF /* PrismEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismEffect.swift; sourceTree = "<group>"; };
 		1320F0FD26BD1F2C002AA2EF /* PrismTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismTransition.swift; sourceTree = "<group>"; };
 		1320F0FE26BD1F2C002AA2EF /* PrismPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismPreset.swift; sourceTree = "<group>"; };
 		1320F0FF26BD1F2C002AA2EF /* PrismKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismKey.swift; sourceTree = "<group>"; };
-		1320F10026BD1F2C002AA2EF /* PrismPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismPoint.swift; sourceTree = "<group>"; };
+		1320F10026BD1F2C002AA2EF /* CGPoint+PrismPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+PrismPoint.swift"; sourceTree = "<group>"; };
 		1320F10126BD1F2C002AA2EF /* PrismColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismColor.swift; sourceTree = "<group>"; };
 		1320F11126BD202E002AA2EF /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		1320F11526BD22E5002AA2EF /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		13214A2C26BE241500997A7A /* PrismKitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PrismKitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13214A2E26BE241500997A7A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		135FBEE426C477BB0075B6CC /* NSColor+PrismColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+PrismColor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,13 +127,13 @@
 		1320F0E926BD1EC0002AA2EF /* PrismKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				1320F10026BD1F2C002AA2EF /* PrismPoint.swift */,
+				1320F10026BD1F2C002AA2EF /* CGPoint+PrismPoint.swift */,
 				1320F0FF26BD1F2C002AA2EF /* PrismKey.swift */,
 				1320F0FD26BD1F2C002AA2EF /* PrismTransition.swift */,
 				1320F0FB26BD1F2C002AA2EF /* PrismEffect.swift */,
 				1320F0EA26BD1EC0002AA2EF /* PrismDeviceKeyboard.swift */,
-				1320F0EB26BD1EC0002AA2EF /* PrismDevicePerKeyModes.swift */,
-				1320F0EC26BD1EC0002AA2EF /* PrismDeviceKeyboardLayout.swift */,
+				1320F0EB26BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift */,
+				1320F0EC26BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift */,
 			);
 			path = PrismKeyboard;
 			sourceTree = "<group>";
@@ -141,6 +143,7 @@
 			children = (
 				1320F0FE26BD1F2C002AA2EF /* PrismPreset.swift */,
 				1320F10126BD1F2C002AA2EF /* PrismColor.swift */,
+				135FBEE426C477BB0075B6CC /* NSColor+PrismColor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,9 +281,10 @@
 				1320F10926BD1F2C002AA2EF /* PrismColor.swift in Sources */,
 				1320F11626BD22E5002AA2EF /* Log.swift in Sources */,
 				1320F0EF26BD1EC0002AA2EF /* IOHIDDevice+FeatureReport.swift in Sources */,
-				1320F0F726BD1EC0002AA2EF /* PrismDeviceKeyboardLayout.swift in Sources */,
-				1320F0F626BD1EC0002AA2EF /* PrismDevicePerKeyModes.swift in Sources */,
-				1320F10826BD1F2C002AA2EF /* PrismPoint.swift in Sources */,
+				1320F0F726BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift in Sources */,
+				1320F0F626BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift in Sources */,
+				1320F10826BD1F2C002AA2EF /* CGPoint+PrismPoint.swift in Sources */,
+				135FBEE526C477BB0075B6CC /* NSColor+PrismColor.swift in Sources */,
 				1320F0F326BD1EC0002AA2EF /* PrismDriver.swift in Sources */,
 				1320F0F226BD1EC0002AA2EF /* IOHIDDevice+Write.swift in Sources */,
 				1320F0F126BD1EC0002AA2EF /* IOHIDDevice+GetProperty.swift in Sources */,
@@ -358,7 +362,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -417,7 +421,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -440,7 +444,8 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = PrismKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -466,6 +471,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = PrismKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

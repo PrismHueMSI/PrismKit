@@ -48,6 +48,10 @@ extension IOHIDManager {
         IOHIDManagerOpen(self, options)
     }
 
+    func close() {
+        IOHIDManagerClose(self, IOOptionBits(kIOHIDOptionsTypeNone))
+    }
+
     func registerDeviceMatchingCallback(_ callback: @escaping IOHIDDeviceCallback, context: UnsafeMutableRawPointer?) {
         IOHIDManagerRegisterDeviceMatchingCallback(self, callback, context)
     }

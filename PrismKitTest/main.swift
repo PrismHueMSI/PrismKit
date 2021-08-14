@@ -7,9 +7,25 @@
 
 import Foundation
 import PrismKit
+import Combine
+
+var cancellables: Set<AnyCancellable> = .init()
 
 let driver = PrismDriver.shared
 
-Thread.sleep(forTimeInterval: 2)
-print(driver.devices)
+driver.deviceSubject.sink { device in
+    print("received device: " + device.name)
+    if let keyboard = device as? PrismDeviceKeyboard {
+        let dict = keyboard.keys.map { key -> [UInt8:UInt8] in
+            print(String(format: "[0x%02x:0x%02X],", key.region, key.keycode), terminator: "")
+            return [key.region:key.keycode]
+        }
 
+        
+    }
+}
+.store(in: &cancellables)
+
+driver.start()
+
+Thread.sleep(forTimeInterval: 5)

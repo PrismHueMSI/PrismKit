@@ -21,7 +21,7 @@ public final class PrismKey: NSObject {
     public var duration: UInt16 = 0x012c
     public var main = PrismRGB(red: 1.0, green: 0.0, blue: 0.0)
     public var active = PrismRGB()
-    public var mode: PrismDevicePerKeyModes = .steady {
+    public var mode = PrismDeviceKeyboardPerKeyModes.steady {
         willSet(value) {
             self.effect = nil
             self.duration = 0x012c
@@ -29,8 +29,10 @@ public final class PrismKey: NSObject {
             self.active = PrismRGB()
         }
     }
+    public var name: String
 
-    public init(region: UInt8, keycode: UInt8) {
+    public init(name: String, region: UInt8, keycode: UInt8) {
+        self.name = name
         self.region = region
         self.keycode = keycode
     }
@@ -38,15 +40,16 @@ public final class PrismKey: NSObject {
 
 extension PrismKey: Codable {
     private enum CodingKeys: CodingKey {
-        case region, keycode, effect, duration, main, active, mode
+        case name, region, keycode, effect, duration, main, active, mode
     }
 
     public convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        let name = try container.decode(String.self, forKey: .name)
         let region = try container.decode(UInt8.self, forKey: .region)
         let keycode = try container.decode(UInt8.self, forKey: .keycode)
-        self.init(region: region, keycode: keycode)
-        mode = try container.decode(PrismDevicePerKeyModes.self, forKey: .mode)
+        self.init(name: name, region: region, keycode: keycode)
+        mode = try container.decode(PrismDeviceKeyboardPerKeyModes.self, forKey: .mode)
         effect = try container.decodeIfPresent(PrismEffect.self, forKey: .effect)
         duration = try container.decode(UInt16.self, forKey: .duration)
         main = try container.decode(PrismRGB.self, forKey: .main)
@@ -55,6 +58,7 @@ extension PrismKey: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
         try container.encode(region, forKey: .region)
         try container.encode(keycode, forKey: .keycode)
         try container.encode(effect, forKey: .effect)
