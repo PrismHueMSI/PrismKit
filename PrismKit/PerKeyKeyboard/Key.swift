@@ -1,5 +1,5 @@
 //
-//  PrismKeys.swift
+//  Key.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 7/15/20.
@@ -7,29 +7,33 @@
 //
 
 import Foundation
+import Combine
 
-public final class PrismKey: NSObject {
+public final class Key: NSObject, ObservableObject {
+    public static let empty = Key(name: "", region: 0, keycode: 0)
+
     public let region: UInt8
     public let keycode: UInt8
-    public var effect: PrismEffect? {
+    public var name: String
+
+    @Published public var effect: PerKeyEffect? {
         didSet {
             if let start = effect?.transitions.first?.color {
                 main = start
             }
         }
     }
-    public var duration: UInt16 = 0x012c
-    public var main = PrismRGB(red: 1.0, green: 0.0, blue: 0.0)
-    public var active = PrismRGB()
-    public var mode = PrismDeviceKeyboardPerKeyModes.steady {
+    @Published public var duration: UInt16 = 0x012c
+    @Published public var main = RGB(red: 1.0, green: 0.0, blue: 0.0)
+    @Published public var active = RGB()
+    @Published public var mode = PerKeyKeyboardModes.steady {
         willSet(value) {
             self.effect = nil
             self.duration = 0x012c
-            self.main = PrismRGB()
-            self.active = PrismRGB()
+            self.main = RGB()
+            self.active = RGB()
         }
     }
-    public var name: String
 
     public init(name: String, region: UInt8, keycode: UInt8) {
         self.name = name
@@ -38,7 +42,7 @@ public final class PrismKey: NSObject {
     }
 }
 
-extension PrismKey: Codable {
+extension Key: Codable {
     private enum CodingKeys: CodingKey {
         case name, region, keycode, effect, duration, main, active, mode
     }
@@ -49,11 +53,11 @@ extension PrismKey: Codable {
         let region = try container.decode(UInt8.self, forKey: .region)
         let keycode = try container.decode(UInt8.self, forKey: .keycode)
         self.init(name: name, region: region, keycode: keycode)
-        mode = try container.decode(PrismDeviceKeyboardPerKeyModes.self, forKey: .mode)
-        effect = try container.decodeIfPresent(PrismEffect.self, forKey: .effect)
+        mode = try container.decode(PerKeyKeyboardModes.self, forKey: .mode)
+        effect = try container.decodeIfPresent(PerKeyEffect.self, forKey: .effect)
         duration = try container.decode(UInt16.self, forKey: .duration)
-        main = try container.decode(PrismRGB.self, forKey: .main)
-        active = try container.decode(PrismRGB.self, forKey: .active)
+        main = try container.decode(RGB.self, forKey: .main)
+        active = try container.decode(RGB.self, forKey: .active)
     }
 
     public func encode(to encoder: Encoder) throws {

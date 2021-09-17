@@ -1,5 +1,5 @@
 //
-//  PrismColor.swift
+//  Color.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 7/21/20.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-public class PrismHSB: NSObject, NSCopying {
+public class HSB: NSObject, NSCopying {
 
     public override func isEqual(_ object: Any?) -> Bool {
-        if let object = object as? PrismHSB {
+        if let object = object as? HSB {
             return hue == object.hue &&
                 saturation == object.saturation &&
                 brightness == object.brightness &&
@@ -50,9 +50,9 @@ public class PrismHSB: NSObject, NSCopying {
         self.alpha = alpha
     }
 
-    public var rgb: PrismRGB {
+    public var rgb: RGB {
         get {
-            if saturation == 0.0 { return PrismRGB(red: brightness, green: brightness, blue: brightness) }
+            if saturation == 0.0 { return RGB(red: brightness, green: brightness, blue: brightness) }
 
             let angle: CGFloat = (hue * 360.0 >= 360.0 ? 0.0 : hue * 360.0)
             let sector: CGFloat = angle / 60.0 // Sector
@@ -65,17 +65,17 @@ public class PrismHSB: NSObject, NSCopying {
 
             switch roundedSector {
             case 0:
-                return PrismRGB(red: brightness, green: testy, blue: point, alpha: alpha)
+                return RGB(red: brightness, green: testy, blue: point, alpha: alpha)
             case 1:
-                return PrismRGB(red: queue, green: brightness, blue: point, alpha: alpha)
+                return RGB(red: queue, green: brightness, blue: point, alpha: alpha)
             case 2:
-                return PrismRGB(red: point, green: brightness, blue: testy, alpha: alpha)
+                return RGB(red: point, green: brightness, blue: testy, alpha: alpha)
             case 3:
-                return PrismRGB(red: point, green: queue, blue: brightness, alpha: alpha)
+                return RGB(red: point, green: queue, blue: brightness, alpha: alpha)
             case 4:
-                return PrismRGB(red: testy, green: point, blue: brightness, alpha: alpha)
+                return RGB(red: testy, green: point, blue: brightness, alpha: alpha)
             default:
-                return PrismRGB(red: brightness, green: point, blue: queue, alpha: alpha)
+                return RGB(red: brightness, green: point, blue: queue, alpha: alpha)
             }
         }
 
@@ -121,14 +121,14 @@ public class PrismHSB: NSObject, NSCopying {
     }
 
     public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = PrismHSB(hue: hue, saturation: saturation, brightness: brightness, alpha: alpha)
+        let copy = HSB(hue: hue, saturation: saturation, brightness: brightness, alpha: alpha)
         return copy
     }
 }
 
-public class PrismRGB: NSObject, NSCopying, Codable {
+public class RGB: NSObject, NSCopying, Codable {
     public override func isEqual(_ object: Any?) -> Bool {
-        if let object = object as? PrismRGB {
+        if let object = object as? RGB {
             return red == object.red &&
                 green == object.green &&
                 blue == object.blue &&
@@ -221,7 +221,7 @@ public class PrismRGB: NSObject, NSCopying, Codable {
                   alpha: 1.0)
     }
 
-    public var hsb: PrismHSB {
+    public var hsb: HSB {
         let maxV: CGFloat = max(red, green, blue)
         let minV: CGFloat = min(red, green, blue)
         var hue: CGFloat = 0
@@ -229,7 +229,7 @@ public class PrismRGB: NSObject, NSCopying, Codable {
         let brightness: CGFloat = maxV
 
         let delta: CGFloat = maxV - minV
-        guard delta > 0.00001 else { return PrismHSB(hue: 0.0, saturation: 0.0, brightness: maxV) }
+        guard delta > 0.00001 else { return HSB(hue: 0.0, saturation: 0.0, brightness: maxV) }
         saturation = maxV == 0.0 ? 0.0 : delta / maxV
 
         if maxV == minV {
@@ -245,7 +245,7 @@ public class PrismRGB: NSObject, NSCopying, Codable {
             hue /= 6.0
         }
 
-        let hsb: PrismHSB = PrismHSB(hue: 0.0, saturation: 0.0, brightness: 0.0, alpha: 0.0)
+        let hsb: HSB = HSB(hue: 0.0, saturation: 0.0, brightness: 0.0, alpha: 0.0)
         hsb.hue = hue
         hsb.saturation = saturation
         hsb.brightness = brightness
@@ -254,11 +254,11 @@ public class PrismRGB: NSObject, NSCopying, Codable {
     }
 
     public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = PrismRGB(red: red, green: green, blue: blue, alpha: alpha)
+        let copy = RGB(red: red, green: green, blue: blue, alpha: alpha)
         return copy
     }
 
-    public func delta(target: PrismRGB, duration: UInt16) -> PrismRGB {
+    public func delta(target: RGB, duration: UInt16) -> RGB {
         var duration = duration
         if duration < 0x21 {
             duration = 0x21
@@ -274,10 +274,10 @@ public class PrismRGB: NSObject, NSCopying, Codable {
         if deltaG < 0.0 { deltaG += 1 }
         if deltaB < 0.0 { deltaB += 1 }
 
-        return PrismRGB(red: deltaR, green: deltaG, blue: deltaB)
+        return RGB(red: deltaR, green: deltaG, blue: deltaB)
     }
 
-    public func undoDelta(startColor: PrismRGB, duration: UInt16) -> PrismRGB {
+    public func undoDelta(startColor: RGB, duration: UInt16) -> RGB {
         var duration = duration
         if duration < 0x21 {
             duration = 0x21
@@ -305,27 +305,27 @@ public class PrismRGB: NSObject, NSCopying, Codable {
 
         valueB += startColor.blue
 
-        return PrismRGB(red: valueR, green: valueG, blue: valueB)
+        return RGB(red: valueR, green: valueG, blue: valueB)
     }
 }
 
 // MARK: Color Function Methods
 
-public class PrismColor {
-    public static func linearGradient(fromColor: PrismRGB, toColor: PrismRGB, percent: CGFloat) -> PrismRGB {
+public class Color {
+    public static func linearGradient(fromColor: RGB, toColor: RGB, percent: CGFloat) -> RGB {
         let red = lerp(fromValue: fromColor.red, toValue: toColor.red, percent: percent)
         let green = lerp(fromValue: fromColor.green, toValue: toColor.green, percent: percent)
         let blue = lerp(fromValue: fromColor.blue, toValue: toColor.blue, percent: percent)
         let alpha = lerp(fromValue: fromColor.alpha, toValue: toColor.alpha, percent: percent)
-        return PrismRGB(red: red, green: green, blue: blue, alpha: alpha)
+        return RGB(red: red, green: green, blue: blue, alpha: alpha)
     }
 
-    public static func blend(src: PrismRGB, dest: PrismRGB) -> PrismRGB {
+    public static func blend(src: RGB, dest: RGB) -> RGB {
         let red = alphaOverlay(from: src.red, to: dest.red, alpha: src.alpha)
         let green = alphaOverlay(from: src.green, to: dest.green, alpha: src.alpha)
         let blue = alphaOverlay(from: src.blue, to: dest.blue, alpha: src.alpha)
         let alpha = 1 - (1 - src.alpha) * (1 - dest.alpha)
-        return PrismRGB(red: red, green: green, blue: blue, alpha: alpha)
+        return RGB(red: red, green: green, blue: blue, alpha: alpha)
     }
 
     public static func lerp(fromValue: CGFloat, toValue: CGFloat, percent: CGFloat) -> CGFloat {

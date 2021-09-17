@@ -1,5 +1,5 @@
 //
-//  PrismController.swift
+//  PrismDriver.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 7/14/20.
@@ -10,18 +10,18 @@
 import IOKit.hid
 import Combine
 
-public class PrismDriver {
+public class PrismDriver: ObservableObject {
 
     // MARK: Public
 
-    public static let shared: PrismDriver = .init()
+    public static let shared: PrismDriver = PrismDriver()
 
-    public var deviceSubject: PassthroughSubject<PrismDevice, Never> = .init()
-    public var deviceRemovalSubject: PassthroughSubject<PrismDevice, Never> = .init()
-    
+    @Published public var selectedDevice: Device?
+    @Published public var devices: [Device] = [Device]()
+
     // MARK: Protected
 
-    internal var models = PrismDeviceModel.allCases.map({ $0.productInformation() })
+    internal var models = DeviceModels.allCases.map({ $0.productInformation() })
 
     // MARK: Private
 
@@ -44,12 +44,12 @@ public class PrismDriver {
 
         let matchingCallback: IOHIDDeviceCallback = { inContext, _, _, device in
             let this = unsafeBitCast(inContext, to: PrismDriver.self)
-            this.deviceAdded(rawDevice: device)
+            this.added(rawDevice: device)
         }
 
         let removalCallback: IOHIDDeviceCallback = { inContext, _, _, device in
             let this = unsafeBitCast(inContext, to: PrismDriver.self)
-            this.deviceRemoved(rawDevice: device)
+            this.removed(rawDevice: device)
         }
 
         let context = unsafeBitCast(self, to: UnsafeMutableRawPointer.self)
@@ -66,22 +66,29 @@ public class PrismDriver {
 
     // MARK: Private Methods
 
-    private func deviceAdded(rawDevice: IOHIDDevice) {
+    private func added(rawDevice: IOHIDDevice) {
         do {
-            var prismDevice = try PrismDevice(device: rawDevice)
-            if prismDevice.isKeyboardDevice {
-                prismDevice = try PrismDeviceKeyboard(device: rawDevice)
+            var device = try Device(device: rawDevice)
+            if device.isKeyboardDevice && device.model != .threeRegion {
+                device = try PerKeyKeyboardDevice(device: rawDevice)
             }
-            deviceSubject.send(prismDevice)
+
+            DispatchQueue.main.async {
+                self.devices.append(device)
+            }
         } catch {
             Log.error("\(error)")
         }
     }
 
-    private func deviceRemoved(rawDevice: IOHIDDevice) {
+    private func removed(rawDevice: IOHIDDevice) {
         do {
-            let prismDevice = try PrismDevice(device: rawDevice)
-            deviceRemovalSubject.send(prismDevice)
+            let device = try Device(device: rawDevice)
+            DispatchQueue.main.async {
+                self.devices.removeAll { dev in
+                    dev.id == device.id
+                }
+            }
         } catch {
             Log.error("\(error)")
         }

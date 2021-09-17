@@ -14,22 +14,36 @@
 		1320F0F126BD1EC0002AA2EF /* IOHIDDevice+GetProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0E426BD1EC0002AA2EF /* IOHIDDevice+GetProperty.swift */; };
 		1320F0F226BD1EC0002AA2EF /* IOHIDDevice+Write.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0E526BD1EC0002AA2EF /* IOHIDDevice+Write.swift */; };
 		1320F0F326BD1EC0002AA2EF /* PrismDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0E726BD1EC0002AA2EF /* PrismDriver.swift */; };
-		1320F0F426BD1EC0002AA2EF /* PrismDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0E826BD1EC0002AA2EF /* PrismDeviceModel.swift */; };
-		1320F0F526BD1EC0002AA2EF /* PrismDeviceKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EA26BD1EC0002AA2EF /* PrismDeviceKeyboard.swift */; };
-		1320F0F626BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EB26BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift */; };
-		1320F0F726BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EC26BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift */; };
-		1320F0F826BD1EC0002AA2EF /* PrismDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0ED26BD1EC0002AA2EF /* PrismDevice.swift */; };
-		1320F10326BD1F2C002AA2EF /* PrismEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FB26BD1F2C002AA2EF /* PrismEffect.swift */; };
-		1320F10526BD1F2C002AA2EF /* PrismTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FD26BD1F2C002AA2EF /* PrismTransition.swift */; };
-		1320F10626BD1F2C002AA2EF /* PrismPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FE26BD1F2C002AA2EF /* PrismPreset.swift */; };
-		1320F10726BD1F2C002AA2EF /* PrismKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FF26BD1F2C002AA2EF /* PrismKey.swift */; };
-		1320F10826BD1F2C002AA2EF /* CGPoint+PrismPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10026BD1F2C002AA2EF /* CGPoint+PrismPoint.swift */; };
-		1320F10926BD1F2C002AA2EF /* PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10126BD1F2C002AA2EF /* PrismColor.swift */; };
+		1320F0F426BD1EC0002AA2EF /* DeviceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0E826BD1EC0002AA2EF /* DeviceModels.swift */; };
+		1320F0F526BD1EC0002AA2EF /* PerKeyKeyboardDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EA26BD1EC0002AA2EF /* PerKeyKeyboardDevice.swift */; };
+		1320F0F726BD1EC0002AA2EF /* PerKeyKeyboardDevice+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0EC26BD1EC0002AA2EF /* PerKeyKeyboardDevice+Utils.swift */; };
+		1320F0F826BD1EC0002AA2EF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0ED26BD1EC0002AA2EF /* Device.swift */; };
+		1320F10326BD1F2C002AA2EF /* PerKeyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FB26BD1F2C002AA2EF /* PerKeyEffect.swift */; };
+		1320F10526BD1F2C002AA2EF /* PerKeyTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FD26BD1F2C002AA2EF /* PerKeyTransition.swift */; };
+		1320F10626BD1F2C002AA2EF /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FE26BD1F2C002AA2EF /* Preset.swift */; };
+		1320F10726BD1F2C002AA2EF /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FF26BD1F2C002AA2EF /* Key.swift */; };
+		1320F10826BD1F2C002AA2EF /* CGPoint+Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10026BD1F2C002AA2EF /* CGPoint+Point.swift */; };
+		1320F10926BD1F2C002AA2EF /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10126BD1F2C002AA2EF /* Color.swift */; };
 		1320F11326BD203B002AA2EF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F11126BD202E002AA2EF /* IOKit.framework */; platformFilter = maccatalyst; };
 		1320F11626BD22E5002AA2EF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F11526BD22E5002AA2EF /* Log.swift */; };
 		13214A2F26BE241500997A7A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13214A2E26BE241500997A7A /* main.swift */; };
+		1334586626F3C10E001FBBD5 /* PrismKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F0D426BD1E21002AA2EF /* PrismKit.framework */; };
+		1334586726F3C10E001FBBD5 /* PrismKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F0D426BD1E21002AA2EF /* PrismKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1348790A26E9C4FE00D7091F /* PrismPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1348790926E9C4FE00D7091F /* PrismPoint.swift */; };
 		135FBEE526C477BB0075B6CC /* NSColor+PrismColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135FBEE426C477BB0075B6CC /* NSColor+PrismColor.swift */; };
+		13D6596326F4F99300C1D39A /* DeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D6596226F4F99300C1D39A /* DeviceController.swift */; };
+		13EAB5FD26F3ABF7001D3D3A /* PerKeyKeyboardModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EAB5FC26F3ABF7001D3D3A /* PerKeyKeyboardModes.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1334586826F3C10E001FBBD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1320F0CB26BD1E21002AA2EF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1320F0D326BD1E21002AA2EF;
+			remoteInfo = PrismKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		13214A2A26BE241500997A7A /* CopyFiles */ = {
@@ -40,6 +54,17 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		1334586A26F3C10E001FBBD5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1334586726F3C10E001FBBD5 /* PrismKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -53,22 +78,24 @@
 		1320F0E426BD1EC0002AA2EF /* IOHIDDevice+GetProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IOHIDDevice+GetProperty.swift"; sourceTree = "<group>"; };
 		1320F0E526BD1EC0002AA2EF /* IOHIDDevice+Write.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IOHIDDevice+Write.swift"; sourceTree = "<group>"; };
 		1320F0E726BD1EC0002AA2EF /* PrismDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDriver.swift; sourceTree = "<group>"; };
-		1320F0E826BD1EC0002AA2EF /* PrismDeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDeviceModel.swift; sourceTree = "<group>"; };
-		1320F0EA26BD1EC0002AA2EF /* PrismDeviceKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDeviceKeyboard.swift; sourceTree = "<group>"; };
-		1320F0EB26BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PrismDeviceKeyboard+PerKeyModes.swift"; sourceTree = "<group>"; };
-		1320F0EC26BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PrismDeviceKeyboard+Utils.swift"; sourceTree = "<group>"; };
-		1320F0ED26BD1EC0002AA2EF /* PrismDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismDevice.swift; sourceTree = "<group>"; };
-		1320F0FB26BD1F2C002AA2EF /* PrismEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismEffect.swift; sourceTree = "<group>"; };
-		1320F0FD26BD1F2C002AA2EF /* PrismTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismTransition.swift; sourceTree = "<group>"; };
-		1320F0FE26BD1F2C002AA2EF /* PrismPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismPreset.swift; sourceTree = "<group>"; };
-		1320F0FF26BD1F2C002AA2EF /* PrismKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismKey.swift; sourceTree = "<group>"; };
-		1320F10026BD1F2C002AA2EF /* CGPoint+PrismPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+PrismPoint.swift"; sourceTree = "<group>"; };
-		1320F10126BD1F2C002AA2EF /* PrismColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismColor.swift; sourceTree = "<group>"; };
+		1320F0E826BD1EC0002AA2EF /* DeviceModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModels.swift; sourceTree = "<group>"; };
+		1320F0EA26BD1EC0002AA2EF /* PerKeyKeyboardDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerKeyKeyboardDevice.swift; sourceTree = "<group>"; };
+		1320F0EC26BD1EC0002AA2EF /* PerKeyKeyboardDevice+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PerKeyKeyboardDevice+Utils.swift"; sourceTree = "<group>"; };
+		1320F0ED26BD1EC0002AA2EF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		1320F0FB26BD1F2C002AA2EF /* PerKeyEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerKeyEffect.swift; sourceTree = "<group>"; };
+		1320F0FD26BD1F2C002AA2EF /* PerKeyTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerKeyTransition.swift; sourceTree = "<group>"; };
+		1320F0FE26BD1F2C002AA2EF /* Preset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
+		1320F0FF26BD1F2C002AA2EF /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		1320F10026BD1F2C002AA2EF /* CGPoint+Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Point.swift"; sourceTree = "<group>"; };
+		1320F10126BD1F2C002AA2EF /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		1320F11126BD202E002AA2EF /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		1320F11526BD22E5002AA2EF /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		13214A2C26BE241500997A7A /* PrismKitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PrismKitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13214A2E26BE241500997A7A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		1348790926E9C4FE00D7091F /* PrismPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismPoint.swift; sourceTree = "<group>"; };
 		135FBEE426C477BB0075B6CC /* NSColor+PrismColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+PrismColor.swift"; sourceTree = "<group>"; };
+		13D6596226F4F99300C1D39A /* DeviceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceController.swift; sourceTree = "<group>"; };
+		13EAB5FC26F3ABF7001D3D3A /* PerKeyKeyboardModes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerKeyKeyboardModes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1334586626F3C10E001FBBD5 /* PrismKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,36 +142,36 @@
 			children = (
 				1320F11426BD22D9002AA2EF /* Utils */,
 				1320F0F926BD1F2C002AA2EF /* Model */,
-				1320F0E926BD1EC0002AA2EF /* PrismKeyboard */,
+				13D6596426F4FA0000C1D39A /* Device */,
+				1320F0E926BD1EC0002AA2EF /* PerKeyKeyboard */,
 				1320F0E726BD1EC0002AA2EF /* PrismDriver.swift */,
-				1320F0E826BD1EC0002AA2EF /* PrismDeviceModel.swift */,
-				1320F0ED26BD1EC0002AA2EF /* PrismDevice.swift */,
 				1320F0D726BD1E21002AA2EF /* PrismKit.h */,
 				1320F0D826BD1E21002AA2EF /* Info.plist */,
 			);
 			path = PrismKit;
 			sourceTree = "<group>";
 		};
-		1320F0E926BD1EC0002AA2EF /* PrismKeyboard */ = {
+		1320F0E926BD1EC0002AA2EF /* PerKeyKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				1320F10026BD1F2C002AA2EF /* CGPoint+PrismPoint.swift */,
-				1320F0FF26BD1F2C002AA2EF /* PrismKey.swift */,
-				1320F0FD26BD1F2C002AA2EF /* PrismTransition.swift */,
-				1320F0FB26BD1F2C002AA2EF /* PrismEffect.swift */,
-				1320F0EA26BD1EC0002AA2EF /* PrismDeviceKeyboard.swift */,
-				1320F0EB26BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift */,
-				1320F0EC26BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift */,
+				1320F0FD26BD1F2C002AA2EF /* PerKeyTransition.swift */,
+				1320F0FB26BD1F2C002AA2EF /* PerKeyEffect.swift */,
+				1320F0FF26BD1F2C002AA2EF /* Key.swift */,
+				1320F0EA26BD1EC0002AA2EF /* PerKeyKeyboardDevice.swift */,
+				1320F0EC26BD1EC0002AA2EF /* PerKeyKeyboardDevice+Utils.swift */,
+				13EAB5FC26F3ABF7001D3D3A /* PerKeyKeyboardModes.swift */,
 			);
-			path = PrismKeyboard;
+			path = PerKeyKeyboard;
 			sourceTree = "<group>";
 		};
 		1320F0F926BD1F2C002AA2EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1320F0FE26BD1F2C002AA2EF /* PrismPreset.swift */,
-				1320F10126BD1F2C002AA2EF /* PrismColor.swift */,
+				1320F10026BD1F2C002AA2EF /* CGPoint+Point.swift */,
+				1320F0FE26BD1F2C002AA2EF /* Preset.swift */,
+				1320F10126BD1F2C002AA2EF /* Color.swift */,
 				135FBEE426C477BB0075B6CC /* NSColor+PrismColor.swift */,
+				1348790926E9C4FE00D7091F /* PrismPoint.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,6 +203,16 @@
 				13214A2E26BE241500997A7A /* main.swift */,
 			);
 			path = PrismKitTest;
+			sourceTree = "<group>";
+		};
+		13D6596426F4FA0000C1D39A /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				1320F0E826BD1EC0002AA2EF /* DeviceModels.swift */,
+				1320F0ED26BD1EC0002AA2EF /* Device.swift */,
+				13D6596226F4F99300C1D39A /* DeviceController.swift */,
+			);
+			path = Device;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,10 +254,12 @@
 				13214A2826BE241500997A7A /* Sources */,
 				13214A2926BE241500997A7A /* Frameworks */,
 				13214A2A26BE241500997A7A /* CopyFiles */,
+				1334586A26F3C10E001FBBD5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1334586926F3C10E001FBBD5 /* PBXTargetDependency */,
 			);
 			name = PrismKitTest;
 			productName = PrismKitTest;
@@ -277,25 +317,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1320F0F526BD1EC0002AA2EF /* PrismDeviceKeyboard.swift in Sources */,
-				1320F10926BD1F2C002AA2EF /* PrismColor.swift in Sources */,
+				13D6596326F4F99300C1D39A /* DeviceController.swift in Sources */,
+				1320F0F526BD1EC0002AA2EF /* PerKeyKeyboardDevice.swift in Sources */,
+				1320F10926BD1F2C002AA2EF /* Color.swift in Sources */,
 				1320F11626BD22E5002AA2EF /* Log.swift in Sources */,
 				1320F0EF26BD1EC0002AA2EF /* IOHIDDevice+FeatureReport.swift in Sources */,
-				1320F0F726BD1EC0002AA2EF /* PrismDeviceKeyboard+Utils.swift in Sources */,
-				1320F0F626BD1EC0002AA2EF /* PrismDeviceKeyboard+PerKeyModes.swift in Sources */,
-				1320F10826BD1F2C002AA2EF /* CGPoint+PrismPoint.swift in Sources */,
+				1320F0F726BD1EC0002AA2EF /* PerKeyKeyboardDevice+Utils.swift in Sources */,
+				1320F10826BD1F2C002AA2EF /* CGPoint+Point.swift in Sources */,
 				135FBEE526C477BB0075B6CC /* NSColor+PrismColor.swift in Sources */,
 				1320F0F326BD1EC0002AA2EF /* PrismDriver.swift in Sources */,
 				1320F0F226BD1EC0002AA2EF /* IOHIDDevice+Write.swift in Sources */,
 				1320F0F126BD1EC0002AA2EF /* IOHIDDevice+GetProperty.swift in Sources */,
-				1320F0F826BD1EC0002AA2EF /* PrismDevice.swift in Sources */,
-				1320F0F426BD1EC0002AA2EF /* PrismDeviceModel.swift in Sources */,
-				1320F10626BD1F2C002AA2EF /* PrismPreset.swift in Sources */,
+				1320F0F826BD1EC0002AA2EF /* Device.swift in Sources */,
+				1348790A26E9C4FE00D7091F /* PrismPoint.swift in Sources */,
+				1320F0F426BD1EC0002AA2EF /* DeviceModels.swift in Sources */,
+				1320F10626BD1F2C002AA2EF /* Preset.swift in Sources */,
 				1320F0EE26BD1EC0002AA2EF /* RawDeviceProtocols.swift in Sources */,
-				1320F10326BD1F2C002AA2EF /* PrismEffect.swift in Sources */,
-				1320F10526BD1F2C002AA2EF /* PrismTransition.swift in Sources */,
+				13EAB5FD26F3ABF7001D3D3A /* PerKeyKeyboardModes.swift in Sources */,
+				1320F10326BD1F2C002AA2EF /* PerKeyEffect.swift in Sources */,
+				1320F10526BD1F2C002AA2EF /* PerKeyTransition.swift in Sources */,
 				1320F0F026BD1EC0002AA2EF /* IOHIDManager+Configure.swift in Sources */,
-				1320F10726BD1F2C002AA2EF /* PrismKey.swift in Sources */,
+				1320F10726BD1F2C002AA2EF /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +350,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1334586926F3C10E001FBBD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1320F0D326BD1E21002AA2EF /* PrismKit */;
+			targetProxy = 1334586826F3C10E001FBBD5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1320F0DA26BD1E21002AA2EF /* Debug */ = {

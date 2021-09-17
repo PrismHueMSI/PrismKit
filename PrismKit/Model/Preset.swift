@@ -8,11 +8,11 @@
 
 import Cocoa
 
-public class PrismPreset: NSObject {
+public class Preset: NSObject {
     public var title: String = ""
     public var type: PresetType = .defaultPreset
     public var url: URL?
-    public var children = [PrismPreset]()
+    public var children = [Preset]()
 
     public init(title: String = "", type: PresetType = .defaultPreset) {
         self.title = title
@@ -25,7 +25,7 @@ public enum PresetType: Int, CaseIterable, Codable {
     case customPreset
 }
 
-public extension PrismPreset {
+public extension Preset {
     var isDirectory: Bool {
         url?.hasDirectoryPath ?? true
     }

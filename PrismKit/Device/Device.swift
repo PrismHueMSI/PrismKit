@@ -1,5 +1,5 @@
 //
-//  PrismDriver.swift
+//  Device.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 7/20/20.
@@ -8,27 +8,37 @@
 
 import Foundation
 
-public class PrismDevice {
+public class Device {
     public typealias RawDevice = WriteDevice & FeatureReportDevice
 
     // MARK: Device information
 
+    // Private
+
     private let device: RawDevice
+
+    // Public
+
     public let id: Int
     public let name: String
-    public let vendorId: Int
-    public let versionNumber: Int
-    public let productId: Int
-    public let primaryUsagePage: Int
+    public var isKeyboardDevice: Bool {
+        return [DeviceModels.perKey,
+                DeviceModels.perKeyGS65,
+                DeviceModels.threeRegion].contains(model)
+    }
 
     // Internal
 
     internal let commandMutex = DispatchQueue(label: "prism-device-mutex")
+    internal let vendorId: Int
+    internal let versionNumber: Int
+    internal let productId: Int
+    internal let primaryUsagePage: Int
 
     // MARK: PrismDeviceModel
 
-    public var model: PrismDeviceModel {
-        let product = PrismDeviceModel.allCases.first(where: {
+    public var model: DeviceModels {
+        let product = DeviceModels.allCases.first(where: {
             $0.vendorId == self.vendorId &&
                 $0.productId == self.productId &&
                 $0.versionNumber == self.versionNumber &&
@@ -37,9 +47,6 @@ public class PrismDevice {
         return product ?? .unknown
     }
 
-    public var isKeyboardDevice: Bool {
-        return model == .perKeyGS65 || model == .perKey || model == .threeRegion
-    }
 
     internal init(device: IOHIDDevice) throws {
         self.device = device
@@ -51,7 +58,7 @@ public class PrismDevice {
         versionNumber = try device.getProperty(key: kIOHIDVersionNumberKey)
     }
 
-    public func update(forceUpdate: Bool = false) {
+    public func update(force: Bool = false) {
         Log.error("Update unknown device not implemented for: \(name):\(id)")
         fatalError("Subclasses need to implement the \(#function) method.")
     }
@@ -59,7 +66,7 @@ public class PrismDevice {
 
 // MARK: Send Feature Report / Write
 
-internal extension PrismDevice {
+internal extension Device {
     func sendFeatureReport(data: Data) -> IOReturn {
         return device.sendFeatureReport(data: data)
     }
@@ -71,18 +78,25 @@ internal extension PrismDevice {
 
 // MARK: Comparison
 
-extension PrismDevice: Equatable {
-    public static func == (lhs: PrismDevice, rhs: PrismDevice) -> Bool {
+extension Device: Equatable {
+    public static func == (lhs: Device, rhs: Device) -> Bool {
         lhs.id == rhs.id
     }
 }
 
+extension Device: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+
 // MARK: String
 
-extension PrismDevice: CustomStringConvertible {
+extension Device: CustomStringConvertible {
     public var description: String {
         var description = ""
-        description += "\nPrismDevice: (\(name))\n"
+        description += "\nDevice: (\(name))\n"
         description += "\tID: \(id)\n"
         description += "\tVendor ID: \(vendorId)\n"
         description += "\tProduct ID: \(productId)\n"

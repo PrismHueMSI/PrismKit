@@ -1,5 +1,5 @@
 //
-//  PrismDeviceKeyboard+Utils.swift
+//  PerKeyKeyboardDevice+Utils.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 7/13/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension PrismDeviceKeyboard {
+extension PerKeyKeyboardDevice {
 
     // MARK: GS65 and PerKey - Region keys
 
@@ -175,7 +175,6 @@ extension PrismDeviceKeyboard {
         0x51,   // up arrow
         0x52    // NULL
     ]
-
 
     public static let perKeyGS65KeyMap: [[CGFloat]] = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],

@@ -1,5 +1,5 @@
 //
-//  PrismDeviceType.swift
+//  DeviceModels.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 7/21/20.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-public enum PrismDeviceModel: CaseIterable {
+public enum DeviceModels: CaseIterable {
 
     case perKey
     case perKeyGS65

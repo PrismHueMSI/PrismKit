@@ -1,5 +1,5 @@
 //
-//  PrismEffects.swift
+//  PerKeyEffect.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 8/15/20.
@@ -7,24 +7,25 @@
 //
 
 import Foundation
+import Combine
 
-public enum PrismDirection: UInt8 {
+public enum PerKeyDirection: UInt8 {
     case xy = 0
     case x = 1
     case y = 2
 }
 
-public enum PrismControl: UInt8 {
+public enum PerKeyControl: UInt8 {
     case inward = 0
     case outward = 1
 }
 
-public final class PrismEffect: NSObject {
+public final class PerKeyEffect: NSObject, ObservableObject {
     public let identifier: UInt8
-    public var start = PrismRGB()
-    public var transitions: [PrismTransition]
-    public var duration: UInt16 = 0x12c
-    public var waveActive = false {
+    @Published public var start = RGB()
+    @Published public var transitions: [PerKeyTransition]
+    @Published public var duration: UInt16 = 0x12c
+    @Published public var waveActive = false {
         didSet {
             if !waveActive {
                 direction = .xy
@@ -34,22 +35,22 @@ public final class PrismEffect: NSObject {
             }
         }
     }
-    public var direction = PrismDirection.xy
-    public var control = PrismControl.inward
-    public var origin = CGPoint()
-    public var pulse: UInt16 = 100
+    @Published public var direction = PerKeyDirection.xy
+    @Published public var control = PerKeyControl.inward
+    @Published public var origin = CGPoint()
+    @Published public var pulse: UInt16 = 100
 
-    public init(identifier: UInt8, transitions: [PrismTransition]) {
+    public init(identifier: UInt8, transitions: [PerKeyTransition]) {
         self.identifier = identifier
         self.transitions = transitions
-        self.start = transitions.first?.color ?? PrismRGB()
+        self.start = transitions.first?.color ?? RGB()
         waveActive = false
     }
 }
 
-public extension PrismEffect {
+public extension PerKeyEffect {
     override func isEqual(_ object: Any?) -> Bool {
-        guard let otherEffect = object as? PrismEffect else { return false }
+        guard let otherEffect = object as? PerKeyEffect else { return false }
         return
             self.identifier == otherEffect.identifier &&
             self.start == otherEffect.start &&
@@ -77,7 +78,7 @@ public extension PrismEffect {
     }
 }
 
-extension PrismEffect: Codable {
+extension PerKeyEffect: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case identifier, start, waveActive, direction, control, origin, pulse, transitions, duration
@@ -86,12 +87,12 @@ extension PrismEffect: Codable {
     public convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let identifier = try container.decode(UInt8.self, forKey: .identifier)
-        let transitions = try container.decode([PrismTransition].self, forKey: .transitions)
+        let transitions = try container.decode([PerKeyTransition].self, forKey: .transitions)
         self.init(identifier: identifier, transitions: transitions)
-        self.start = try container.decode(PrismRGB.self, forKey: .start)
+        self.start = try container.decode(RGB.self, forKey: .start)
         self.waveActive = try container.decode(Bool.self, forKey: .waveActive)
-        self.direction = PrismDirection(rawValue: try container.decode(UInt8.self, forKey: .direction)) ?? .x
-        self.control = PrismControl(rawValue: try container.decode(UInt8.self, forKey: .control)) ?? .inward
+        self.direction = PerKeyDirection(rawValue: try container.decode(UInt8.self, forKey: .direction)) ?? .x
+        self.control = PerKeyControl(rawValue: try container.decode(UInt8.self, forKey: .control)) ?? .inward
         self.origin = try container.decode(CGPoint.self, forKey: .origin)
         self.pulse = try container.decode(UInt16.self, forKey: .pulse)
         self.duration = try container.decode(UInt16.self, forKey: .duration)

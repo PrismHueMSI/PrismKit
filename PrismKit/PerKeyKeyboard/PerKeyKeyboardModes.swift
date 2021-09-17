@@ -1,14 +1,13 @@
 //
-//  PrismDeviceKeyboard+PerKeyModes.swift.swift
+//  PerKeyKeyboardModes.swift
 //  PrismKit
 //
-//  Created by Erik Bautista on 8/15/20.
-//  Copyright © 2020 ErrorErrorError. All rights reserved.
+//  Created by Erik Bautista on 9/16/21.
 //
 
 import Foundation
 
-public enum PrismDeviceKeyboardPerKeyModes: UInt32, Codable {
+public enum PerKeyKeyboardModes: UInt32, Codable {
     case steady
     case colorShift
     case breathing
@@ -16,7 +15,7 @@ public enum PrismDeviceKeyboardPerKeyModes: UInt32, Codable {
     case disabled
 }
 
-extension PrismDeviceKeyboardPerKeyModes: CustomStringConvertible {
+extension PerKeyKeyboardModes: CustomStringConvertible {
     public var description: String {
         switch self {
         case .steady: return "Steady"
