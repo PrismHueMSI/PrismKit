@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SSPerKeyProperties {
+public class SSPerKeyProperties {
     var keys = [Key]()
     var keysSelected = [Key]()
     var effects = [PerKeyEffect]()

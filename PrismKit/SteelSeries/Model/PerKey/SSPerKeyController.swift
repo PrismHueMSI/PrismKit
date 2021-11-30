@@ -5,7 +5,7 @@
 //  Created by Erik Bautista on 9/18/21.
 //
 
-class SSPerKeyController: SSController {
+class SSPerKeyController: SSDeviceController {
     // MARK: Protected Properties
 
     let device: IOHIDDevice
@@ -20,6 +20,19 @@ class SSPerKeyController: SSController {
         self.device = device
         self.model = model
         properties = SSPerKeyProperties()
+
+        let keyboardKeyNames = model == .perKey ? PerKeyKeyboardDevice.perKeyNames :
+            PerKeyKeyboardDevice.perKeyGS65KeyNames
+        let keycodeArray = model == .perKey ? PerKeyKeyboardDevice.perKeyRegionKeyCodes :
+            PerKeyKeyboardDevice.perKeyGS65RegionKeyCodes
+
+        for (rowIndex, row) in keycodeArray.enumerated() {
+            for (columnIndex, value) in row.enumerated() {
+                let keySymbol = keyboardKeyNames[rowIndex][columnIndex]
+                let key = Key(name: keySymbol, region: value.0, keycode: value.1)
+                properties.keys.append(key)
+            }
+        }
     }
 
     func update(force: Bool) {

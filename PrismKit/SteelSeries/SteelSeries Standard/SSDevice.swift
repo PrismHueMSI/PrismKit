@@ -8,7 +8,7 @@
 import Foundation
 import IOKit
 
-class SSDevice {
+public class SSDevice {
     let device: IOHIDDevice
 
     internal let id: Int
@@ -18,7 +18,7 @@ class SSDevice {
     internal let versionNumber: Int
     internal let primaryUsagePage: Int
 
-    var controller: SSController?
+    var controller: SSDeviceController?
 
     init(device: IOHIDDevice) throws {
         self.device = device

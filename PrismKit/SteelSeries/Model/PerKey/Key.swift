@@ -16,17 +16,17 @@ public final class Key: NSObject, ObservableObject {
     public let keycode: UInt8
     public var name: String
 
-    @Published public var effect: PerKeyEffect? {
+    public var effect: PerKeyEffect? {
         didSet {
             if let start = effect?.transitions.first?.color {
                 main = start
             }
         }
     }
-    @Published public var duration: UInt16 = 0x012c
-    @Published public var main = RGB(red: 1.0, green: 0.0, blue: 0.0)
-    @Published public var active = RGB()
-    @Published public var mode = PerKeyKeyboardModes.steady {
+    public var duration: UInt16 = 0x012c
+    public var main = RGB(red: 1.0, green: 0.0, blue: 0.0)
+    public var active = RGB()
+    public var mode = PerKeyKeyboardModes.steady {
         willSet(value) {
             self.effect = nil
             self.duration = 0x012c

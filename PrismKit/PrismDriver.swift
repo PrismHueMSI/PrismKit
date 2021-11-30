@@ -17,7 +17,7 @@ public class PrismDriver: ObservableObject {
     public static let shared: PrismDriver = PrismDriver()
 
     @Published public var selectedDevice: Device?
-    @Published public var devices: [Device] = [Device]()
+    @Published public var devices: [PrismDevice] = [PrismDevice]()
 
     // MARK: Protected
 
@@ -68,11 +68,7 @@ public class PrismDriver: ObservableObject {
 
     private func added(rawDevice: IOHIDDevice) {
         do {
-            var device = try Device(device: rawDevice)
-            if device.isKeyboardDevice && device.model != .threeRegion {
-                device = try PerKeyKeyboardDevice(device: rawDevice)
-            }
-
+            let device = try PrismDevice(hidDevice: rawDevice)
             DispatchQueue.main.async {
                 self.devices.append(device)
             }
@@ -83,10 +79,10 @@ public class PrismDriver: ObservableObject {
 
     private func removed(rawDevice: IOHIDDevice) {
         do {
-            let device = try Device(device: rawDevice)
+            let device = try PrismDevice(hidDevice: rawDevice)
             DispatchQueue.main.async {
                 self.devices.removeAll { dev in
-                    dev.id == device.id
+                    dev == device
                 }
             }
         } catch {
