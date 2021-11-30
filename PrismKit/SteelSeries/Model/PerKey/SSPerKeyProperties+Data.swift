@@ -8,6 +8,7 @@
 import Foundation
 
 extension SSPerKeyProperties {
+    static let packageSize = 0x20c
 
     // MARK: GS65 and PerKey - Region keys
 

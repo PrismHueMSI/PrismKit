@@ -9,14 +9,13 @@
 import Foundation
 import Combine
 
-public final class Key: NSObject, ObservableObject {
-    public static let empty = Key(name: "", region: 0, keycode: 0)
+public final class SSKey: NSObject, ObservableObject {
+    public static let empty = SSKey(name: "", region: 0, keycode: 0)
 
     public let region: UInt8
     public let keycode: UInt8
     public var name: String
-
-    public var effect: PerKeyEffect? {
+    public var effect: SSPerKeyEffect? {
         didSet {
             if let start = effect?.transitions.first?.color {
                 main = start
@@ -40,9 +39,28 @@ public final class Key: NSObject, ObservableObject {
         self.region = region
         self.keycode = keycode
     }
+
+    public enum PerKeyKeyboardModes: UInt32, Codable, CustomStringConvertible {
+        case steady
+        case colorShift
+        case breathing
+        case reactive
+        case disabled
+
+        public var description: String {
+            switch self {
+            case .steady: return "Steady"
+            case .colorShift: return "ColorShift"
+            case .breathing: return "Breathing"
+            case .reactive: return "Reactive"
+            case .disabled: return "Disabled"
+            }
+        }
+
+    }
 }
 
-extension Key: Codable {
+extension SSKey: Codable {
     private enum CodingKeys: CodingKey {
         case name, region, keycode, effect, duration, main, active, mode
     }
@@ -54,7 +72,7 @@ extension Key: Codable {
         let keycode = try container.decode(UInt8.self, forKey: .keycode)
         self.init(name: name, region: region, keycode: keycode)
         mode = try container.decode(PerKeyKeyboardModes.self, forKey: .mode)
-        effect = try container.decodeIfPresent(PerKeyEffect.self, forKey: .effect)
+        effect = try container.decodeIfPresent(SSPerKeyEffect.self, forKey: .effect)
         duration = try container.decode(UInt16.self, forKey: .duration)
         main = try container.decode(RGB.self, forKey: .main)
         active = try container.decode(RGB.self, forKey: .active)

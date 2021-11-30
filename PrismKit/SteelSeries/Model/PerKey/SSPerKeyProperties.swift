@@ -8,8 +8,8 @@
 import Foundation
 
 public class SSPerKeyProperties {
-    var keys = [Key]()
-    var keysSelected = [Key]()
-    var effects = [PerKeyEffect]()
+    var keys = [SSKey]()
+    var keysSelected = [SSKey]()
+    var effects = [SSPerKeyEffect]()
     var origin = PrismPoint()
 }

@@ -21,15 +21,13 @@ class SSPerKeyController: SSDeviceController {
         self.model = model
         properties = SSPerKeyProperties()
 
-        let keyboardKeyNames = model == .perKey ? PerKeyKeyboardDevice.perKeyNames :
-            PerKeyKeyboardDevice.perKeyGS65KeyNames
-        let keycodeArray = model == .perKey ? PerKeyKeyboardDevice.perKeyRegionKeyCodes :
-            PerKeyKeyboardDevice.perKeyGS65RegionKeyCodes
+        let keyboardKeyNames = model == .perKey ? SSPerKeyProperties.perKeyNames : SSPerKeyProperties.perKeyGS65KeyNames
+        let keycodeArray = model == .perKey ? SSPerKeyProperties.perKeyRegionKeyCodes : SSPerKeyProperties.perKeyGS65RegionKeyCodes
 
         for (rowIndex, row) in keycodeArray.enumerated() {
             for (columnIndex, value) in row.enumerated() {
                 let keySymbol = keyboardKeyNames[rowIndex][columnIndex]
-                let key = Key(name: keySymbol, region: value.0, keycode: value.1)
+                let key = SSKey(name: keySymbol, region: value.0, keycode: value.1)
                 properties.keys.append(key)
             }
         }
@@ -40,13 +38,13 @@ class SSPerKeyController: SSDeviceController {
             let keysSelected = self.properties.keysSelected
             guard keysSelected.count > 0 || force else { return }
 
-            let updateModifiers = keysSelected.filter { $0.region == PerKeyKeyboardDevice.regions[0] }
+            let updateModifiers = keysSelected.filter { $0.region == SSPerKeyProperties.regions[0] }
                 .count > 0 || force
-            let updateAlphanums = keysSelected.filter { $0.region == PerKeyKeyboardDevice.regions[1] }
+            let updateAlphanums = keysSelected.filter { $0.region == SSPerKeyProperties.regions[1] }
                 .count > 0 || force
-            let updateEnter = keysSelected.filter { $0.region == PerKeyKeyboardDevice.regions[2] }
+            let updateEnter = keysSelected.filter { $0.region == SSPerKeyProperties.regions[2] }
                 .count > 0 || force
-            let updateSpecial = keysSelected.filter { $0.region == PerKeyKeyboardDevice.regions[3] }
+            let updateSpecial = keysSelected.filter { $0.region == SSPerKeyProperties.regions[3] }
                 .count > 0 || force
 
             // Update effects first
@@ -62,8 +60,8 @@ class SSPerKeyController: SSDeviceController {
             var lastByte: UInt8 = 0
             if updateModifiers {
                 lastByte = 0x2d
-                let result = self.writeKeysToKeyboard(region: PerKeyKeyboardDevice.regions[0],
-                                                      keycodes: PerKeyKeyboardDevice.modifiers)
+                let result = self.writeKeysToKeyboard(region: SSPerKeyProperties.regions[0],
+                                                      keycodes: SSPerKeyProperties.modifiers)
                 if result != kIOReturnSuccess {
                     Log.error("Error sending feature report for modifiers; \(self.model): " +
                                 "\(String(cString: mach_error_string(result)))")
@@ -73,8 +71,8 @@ class SSPerKeyController: SSDeviceController {
 
             if updateAlphanums {
                 lastByte = 0x08
-                let result = self.writeKeysToKeyboard(region: PerKeyKeyboardDevice.regions[1],
-                                                      keycodes: PerKeyKeyboardDevice.alphanums)
+                let result = self.writeKeysToKeyboard(region: SSPerKeyProperties.regions[1],
+                                                      keycodes: SSPerKeyProperties.alphanums)
                 if result != kIOReturnSuccess {
                     Log.error("Error sending feature report for alphanums; \(self.model): " +
                                 "\(String(cString: mach_error_string(result)))")
@@ -84,8 +82,8 @@ class SSPerKeyController: SSDeviceController {
 
             if updateEnter {
                 lastByte = 0x87
-                let result = self.writeKeysToKeyboard(region: PerKeyKeyboardDevice.regions[2],
-                                                      keycodes: PerKeyKeyboardDevice.enter)
+                let result = self.writeKeysToKeyboard(region: SSPerKeyProperties.regions[2],
+                                                      keycodes: SSPerKeyProperties.enter)
                 if result != kIOReturnSuccess {
                     Log.error("Error sending feature report for enter key; \(self.model): " +
                                 "\(String(cString: mach_error_string(result)))")
@@ -95,10 +93,8 @@ class SSPerKeyController: SSDeviceController {
 
             if updateSpecial {
                 lastByte = 0x44
-                let result = self.writeKeysToKeyboard(region: PerKeyKeyboardDevice.regions[3],
-                                                      keycodes: self.model == .perKey ?
-                                                        PerKeyKeyboardDevice.special :
-                                                        PerKeyKeyboardDevice.specialGS65)
+                let result = self.writeKeysToKeyboard(region: SSPerKeyProperties.regions[3],
+                                                      keycodes: self.model == .perKey ? SSPerKeyProperties.special : SSPerKeyProperties.specialGS65)
                 if result != kIOReturnSuccess {
                     Log.error("Error sending feature report for special; \(self.model): " +
                                 "\(String(cString: mach_error_string(result)))")
@@ -129,7 +125,7 @@ class SSPerKeyController: SSDeviceController {
                 return kIOReturnError
             }
 
-            var data = Data(capacity: PerKeyKeyboardDevice.packageSize)
+            var data = Data(capacity: SSPerKeyProperties.packageSize)
             data.append([0x0b, 0x00], count: 2) // Start Packet
 
             let totalDuration = effect.duration
@@ -181,10 +177,10 @@ class SSPerKeyController: SSDeviceController {
             if effect.waveActive {
                 let origin = effect.origin
 
-                data.append([UInt8(origin.xUInt16 & 0x00ff),
-                             UInt8(origin.xUInt16 >> 8),
-                             UInt8(origin.yUInt16 & 0x00ff),
-                             UInt8(origin.yUInt16 >> 8),
+                data.append([UInt8(origin.x & 0x00ff),
+                             UInt8(origin.x >> 8),
+                             UInt8(origin.y & 0x00ff),
+                             UInt8(origin.y >> 8),
                              effect.direction != .y ? 0x01 : 0x00,
                              0x00,
                              effect.direction != .x ? 0x01 : 0x00,
@@ -205,7 +201,7 @@ class SSPerKeyController: SSDeviceController {
             ], count: 5)
 
             // Fill remaining with zeros
-            fillZeros = [UInt8](repeating: 0x00, count: PerKeyKeyboardDevice.packageSize - data.count)
+            fillZeros = [UInt8](repeating: 0x00, count: SSPerKeyProperties.packageSize - data.count)
             data.append(fillZeros, count: fillZeros.count)
 
             let result = device.sendFeatureReport(data: data)
@@ -226,7 +222,7 @@ class SSPerKeyController: SSDeviceController {
     }
 
     private func writeKeysToKeyboard(region: UInt8, keycodes: [UInt8]) -> IOReturn {
-        var data = Data(capacity: PerKeyKeyboardDevice.packageSize)
+        var data = Data(capacity: SSPerKeyProperties.packageSize)
 
         // This array contains only the usable keys
         let keyboardKeys = properties.keys.filter { $0.region == region }
@@ -272,9 +268,8 @@ class SSPerKeyController: SSDeviceController {
         }
 
         // Fill rest of data with the remaining capacity
-        let sizeRemaining = PerKeyKeyboardDevice.packageSize - data.count
+        let sizeRemaining = SSPerKeyProperties.packageSize - data.count
         data.append([UInt8](repeating: 0, count: sizeRemaining), count: sizeRemaining)
         return device.sendFeatureReport(data: data)
     }
-    
 }

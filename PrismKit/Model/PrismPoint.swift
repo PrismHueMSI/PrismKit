@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class PrismPoint: NSObject {
+public class PrismPoint: NSObject, Codable {
     var x = 0
     var y = 0
 }

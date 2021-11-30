@@ -45,4 +45,18 @@ public class SSDevice {
         })
         return product ?? .unknown
     }
+
+    public func update(force: Bool) {
+        if let controller = controller {
+            controller.update(force: force)
+        }
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(device)
+    }
+
+    public static func == (lhs: SSDevice, rhs: SSDevice) -> Bool {
+        return lhs.id == rhs.id
+    }
 }

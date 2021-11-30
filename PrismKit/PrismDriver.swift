@@ -16,12 +16,12 @@ public class PrismDriver: ObservableObject {
 
     public static let shared: PrismDriver = PrismDriver()
 
-    @Published public var selectedDevice: Device?
-    @Published public var devices: [PrismDevice] = [PrismDevice]()
+    @Published public var selectedDevice: SSDevice?
+    @Published public var devices = [SSDevice]()
 
     // MARK: Protected
 
-    internal var models = DeviceModels.allCases.map({ $0.productInformation() })
+    internal var models = SSModels.allCases.map({ $0.productInformation() })
 
     // MARK: Private
 
@@ -44,12 +44,12 @@ public class PrismDriver: ObservableObject {
 
         let matchingCallback: IOHIDDeviceCallback = { inContext, _, _, device in
             let this = unsafeBitCast(inContext, to: PrismDriver.self)
-            this.added(rawDevice: device)
+            this.add(rawDevice: device)
         }
 
         let removalCallback: IOHIDDeviceCallback = { inContext, _, _, device in
             let this = unsafeBitCast(inContext, to: PrismDriver.self)
-            this.removed(rawDevice: device)
+            this.remove(rawDevice: device)
         }
 
         let context = unsafeBitCast(self, to: UnsafeMutableRawPointer.self)
@@ -66,9 +66,9 @@ public class PrismDriver: ObservableObject {
 
     // MARK: Private Methods
 
-    private func added(rawDevice: IOHIDDevice) {
+    private func add(rawDevice: IOHIDDevice) {
         do {
-            let device = try PrismDevice(hidDevice: rawDevice)
+            let device = try SSDevice(device: rawDevice)
             DispatchQueue.main.async {
                 self.devices.append(device)
             }
@@ -77,9 +77,9 @@ public class PrismDriver: ObservableObject {
         }
     }
 
-    private func removed(rawDevice: IOHIDDevice) {
+    private func remove(rawDevice: IOHIDDevice) {
         do {
-            let device = try PrismDevice(hidDevice: rawDevice)
+            let device = try SSDevice(device: rawDevice)
             DispatchQueue.main.async {
                 self.devices.removeAll { dev in
                     dev == device

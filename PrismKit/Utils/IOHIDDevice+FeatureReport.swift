@@ -10,7 +10,6 @@ import Foundation
 import IOKit
 
 extension IOHIDDevice {
-
     public func sendFeatureReport(data: Data) -> IOReturn {
         var returnValue = IOHIDDeviceOpen(self, IOOptionBits(kIOHIDOptionsTypeNone))
         guard returnValue == kIOReturnSuccess else {
