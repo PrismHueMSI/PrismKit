@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class SSPerKeyProperties {
+public final class SSPerKeyProperties: SSDeviceProperties {
     var keys = [SSKey]()
     var keysSelected = [SSKey]()
-    var effects = [SSPerKeyEffect]()
+    var effects = [SSKeyEffect]()
     var origin = PrismPoint()
 }

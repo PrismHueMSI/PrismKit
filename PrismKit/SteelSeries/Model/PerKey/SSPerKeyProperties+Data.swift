@@ -1,5 +1,5 @@
 //
-//  SSPerKeyController+Utils.swift
+//  SSPerKeyProperties+Data.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 9/19/21.

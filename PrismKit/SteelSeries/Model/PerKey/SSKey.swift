@@ -1,5 +1,5 @@
 //
-//  Key.swift
+//  SSKey.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 7/15/20.
@@ -12,21 +12,43 @@ import Combine
 public final class SSKey: NSObject, ObservableObject {
     public static let empty = SSKey(name: "", region: 0, keycode: 0)
 
+    // MARK: The region of key
+
     public let region: UInt8
+
+    // MARK: The Keycode
+
     public let keycode: UInt8
+
+    // MARK:
+
     public var name: String
-    public var effect: SSPerKeyEffect? {
+
+    // MARK:
+
+    public var effect: SSKeyEffect? {
         didSet {
             if let start = effect?.transitions.first?.color {
                 main = start
             }
         }
     }
+
+    // MARK: The duration of the effect
+
     public var duration: UInt16 = 0x012c
+
+    // MARK: Main color
+
     public var main = RGB(red: 1.0, green: 0.0, blue: 0.0)
+
+    // MARK: Rest/Active color
+
     public var active = RGB()
-    public var mode = PerKeyKeyboardModes.steady {
-        willSet(value) {
+
+    // MARK: Mode of the key
+    public var mode = SSKeyModes.steady {
+        didSet {
             self.effect = nil
             self.duration = 0x012c
             self.main = RGB()
@@ -40,7 +62,7 @@ public final class SSKey: NSObject, ObservableObject {
         self.keycode = keycode
     }
 
-    public enum PerKeyKeyboardModes: UInt32, Codable, CustomStringConvertible {
+    public enum SSKeyModes: Codable, CustomStringConvertible {
         case steady
         case colorShift
         case breathing
@@ -50,13 +72,12 @@ public final class SSKey: NSObject, ObservableObject {
         public var description: String {
             switch self {
             case .steady: return "Steady"
-            case .colorShift: return "ColorShift"
+            case .colorShift: return "Color Shift"
             case .breathing: return "Breathing"
             case .reactive: return "Reactive"
             case .disabled: return "Disabled"
             }
         }
-
     }
 }
 
@@ -71,8 +92,8 @@ extension SSKey: Codable {
         let region = try container.decode(UInt8.self, forKey: .region)
         let keycode = try container.decode(UInt8.self, forKey: .keycode)
         self.init(name: name, region: region, keycode: keycode)
-        mode = try container.decode(PerKeyKeyboardModes.self, forKey: .mode)
-        effect = try container.decodeIfPresent(SSPerKeyEffect.self, forKey: .effect)
+        mode = try container.decode(SSKeyModes.self, forKey: .mode)
+        effect = try container.decodeIfPresent(SSKeyEffect.self, forKey: .effect)
         duration = try container.decode(UInt16.self, forKey: .duration)
         main = try container.decode(RGB.self, forKey: .main)
         active = try container.decode(RGB.self, forKey: .active)

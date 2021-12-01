@@ -1,5 +1,5 @@
 //
-//  SSPerKeyEffect.swift
+//  SSKeyEffect.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 8/15/20.
@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 
-public final class SSPerKeyEffect: NSObject, ObservableObject {
+public final class SSKeyEffect: NSObject, ObservableObject {
     public let identifier: UInt8
     public var start = RGB()
     public var transitions: [SSPerKeyTransition]
@@ -75,9 +75,9 @@ public final class SSPerKeyEffect: NSObject, ObservableObject {
 
 // MARK: - Hash Extension
 
-public extension SSPerKeyEffect {
+public extension SSKeyEffect {
     override func isEqual(_ object: Any?) -> Bool {
-        guard let otherEffect = object as? SSPerKeyEffect else { return false }
+        guard let otherEffect = object as? SSKeyEffect else { return false }
         return
             self.identifier == otherEffect.identifier &&
             self.start == otherEffect.start &&
@@ -107,7 +107,7 @@ public extension SSPerKeyEffect {
 
 // MARK: - Codable Extension
 
-extension SSPerKeyEffect: Codable {
+extension SSKeyEffect: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case identifier, start, waveActive, direction, control, origin, pulse, transitions, duration

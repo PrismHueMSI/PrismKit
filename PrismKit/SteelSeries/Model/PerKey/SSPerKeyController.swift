@@ -6,20 +6,21 @@
 //
 
 class SSPerKeyController: SSDeviceController {
-    // MARK: Protected Properties
 
-    let device: IOHIDDevice
-    let properties: SSPerKeyProperties
+    // MARK: Public Properties
+
 
     // MARK: Private Properties
 
+    private let device: IOHIDDevice
     private let model: SSModels
-    private let commandMutex = DispatchQueue(label: "per-key-mutex")
+    private let commandMutex = DispatchQueue(label: "per-key-commands-mutex")
+    private let properties: SSPerKeyProperties
 
-    init(device: IOHIDDevice, model: SSModels) {
+    init(device: IOHIDDevice, model: SSModels, properties: SSPerKeyProperties) {
         self.device = device
         self.model = model
-        properties = SSPerKeyProperties()
+        self.properties = properties
 
         let keyboardKeyNames = model == .perKey ? SSPerKeyProperties.perKeyNames : SSPerKeyProperties.perKeyGS65KeyNames
         let keycodeArray = model == .perKey ? SSPerKeyProperties.perKeyRegionKeyCodes : SSPerKeyProperties.perKeyGS65RegionKeyCodes
@@ -103,14 +104,14 @@ class SSPerKeyController: SSDeviceController {
             }
 
             // Update keyboard
-            
+
             result = self.writeToKeyboard(lastByte: lastByte)
             if result != kIOReturnSuccess {
                 Log.error("Error writing to \(self.model): \(String(cString: mach_error_string(result)))")
             }
         }
     }
-    
+
     private func writeEffectsToKeyboard() -> IOReturn {
         let effects = properties.effects
         guard effects.count > 0 else {

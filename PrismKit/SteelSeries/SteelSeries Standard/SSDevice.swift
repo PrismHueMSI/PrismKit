@@ -9,16 +9,16 @@ import Foundation
 import IOKit
 
 public class SSDevice {
-    let device: IOHIDDevice
+    public var properties: SSDeviceProperties?
+    public let name: String
+    public let id: Int
 
-    internal let id: Int
-    internal let name: String
+    internal let device: IOHIDDevice
     internal let vendorId: Int
     internal let productId: Int
     internal let versionNumber: Int
     internal let primaryUsagePage: Int
-
-    var controller: SSDeviceController?
+    internal var controller: SSDeviceController?
 
     init(device: IOHIDDevice) throws {
         self.device = device
@@ -30,7 +30,8 @@ public class SSDevice {
         primaryUsagePage = try device.getProperty(key: kIOHIDPrimaryUsagePageKey)
 
         if model == .perKey || model == .perKeyGS65 {
-            controller = SSPerKeyController(device: device, model: model)
+            properties = SSPerKeyProperties()
+            controller = SSPerKeyController(device: device, model: model, properties: properties as! SSPerKeyProperties)
         } else {
             // TODO: Handle devices with no controllers, meaning not supported
         }
@@ -51,7 +52,9 @@ public class SSDevice {
             controller.update(force: force)
         }
     }
+}
 
+extension SSDevice: Hashable, Equatable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(device)
     }
