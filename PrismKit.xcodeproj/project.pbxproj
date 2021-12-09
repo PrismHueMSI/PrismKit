@@ -19,7 +19,7 @@
 		1320F10626BD1F2C002AA2EF /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FE26BD1F2C002AA2EF /* Preset.swift */; };
 		1320F10726BD1F2C002AA2EF /* SSKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F0FF26BD1F2C002AA2EF /* SSKey.swift */; };
 		1320F10826BD1F2C002AA2EF /* CGPoint+Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10026BD1F2C002AA2EF /* CGPoint+Point.swift */; };
-		1320F10926BD1F2C002AA2EF /* RGBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10126BD1F2C002AA2EF /* RGBColor.swift */; };
+		1320F10926BD1F2C002AA2EF /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F10126BD1F2C002AA2EF /* RGB.swift */; };
 		1320F11326BD203B002AA2EF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F11126BD202E002AA2EF /* IOKit.framework */; platformFilter = maccatalyst; };
 		1320F11626BD22E5002AA2EF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320F11526BD22E5002AA2EF /* Log.swift */; };
 		13214A2F26BE241500997A7A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13214A2E26BE241500997A7A /* main.swift */; };
@@ -33,7 +33,7 @@
 		13A39B5626F7139C00EA2DEE /* PrismKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A39B5526F7139C00EA2DEE /* PrismKitTests.swift */; };
 		13A39B5826F7139C00EA2DEE /* PrismKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F0D426BD1E21002AA2EF /* PrismKit.framework */; };
 		13A39B5F26F7147300EA2DEE /* SSPerKeyProperties+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A39B5E26F7147300EA2DEE /* SSPerKeyProperties+Data.swift */; };
-		13CB78B027584BAD00BC8F07 /* RGBColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CB78AF27584BAD00BC8F07 /* RGBColor+Utils.swift */; };
+		13CB78B027584BAD00BC8F07 /* RGB+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CB78AF27584BAD00BC8F07 /* RGB+Utils.swift */; };
 		13CB78B227584CC600BC8F07 /* PrismPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CB78B127584CC600BC8F07 /* PrismPoint.swift */; };
 		13D6596A26F4FE8700C1D39A /* SSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D6596926F4FE8700C1D39A /* SSConstants.swift */; };
 /* End PBXBuildFile section */
@@ -93,7 +93,7 @@
 		1320F0FE26BD1F2C002AA2EF /* Preset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		1320F0FF26BD1F2C002AA2EF /* SSKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSKey.swift; sourceTree = "<group>"; };
 		1320F10026BD1F2C002AA2EF /* CGPoint+Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Point.swift"; sourceTree = "<group>"; };
-		1320F10126BD1F2C002AA2EF /* RGBColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBColor.swift; sourceTree = "<group>"; };
+		1320F10126BD1F2C002AA2EF /* RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
 		1320F11126BD202E002AA2EF /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		1320F11526BD22E5002AA2EF /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		13214A2C26BE241500997A7A /* PrismKitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PrismKitTest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,7 +107,7 @@
 		13A39B5526F7139C00EA2DEE /* PrismKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKitTests.swift; sourceTree = "<group>"; };
 		13A39B5726F7139C00EA2DEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13A39B5E26F7147300EA2DEE /* SSPerKeyProperties+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SSPerKeyProperties+Data.swift"; sourceTree = "<group>"; };
-		13CB78AF27584BAD00BC8F07 /* RGBColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RGBColor+Utils.swift"; sourceTree = "<group>"; };
+		13CB78AF27584BAD00BC8F07 /* RGB+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RGB+Utils.swift"; sourceTree = "<group>"; };
 		13CB78B127584CC600BC8F07 /* PrismPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismPoint.swift; sourceTree = "<group>"; };
 		13D6596926F4FE8700C1D39A /* SSConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,8 +195,8 @@
 		1320F11426BD22D9002AA2EF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				1320F10126BD1F2C002AA2EF /* RGBColor.swift */,
-				13CB78AF27584BAD00BC8F07 /* RGBColor+Utils.swift */,
+				1320F10126BD1F2C002AA2EF /* RGB.swift */,
+				13CB78AF27584BAD00BC8F07 /* RGB+Utils.swift */,
 				1320F0E026BD1EC0002AA2EF /* RawDeviceProtocols.swift */,
 				1320F0E226BD1EC0002AA2EF /* IOHIDDevice+FeatureReport.swift */,
 				1320F0E326BD1EC0002AA2EF /* IOHIDManager+Configure.swift */,
@@ -405,8 +405,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				132024AE2757FB74006AA60F /* SSDeviceProperties.swift in Sources */,
-				1320F10926BD1F2C002AA2EF /* RGBColor.swift in Sources */,
-				13CB78B027584BAD00BC8F07 /* RGBColor+Utils.swift in Sources */,
+				1320F10926BD1F2C002AA2EF /* RGB.swift in Sources */,
+				13CB78B027584BAD00BC8F07 /* RGB+Utils.swift in Sources */,
 				1320F11626BD22E5002AA2EF /* Log.swift in Sources */,
 				1320F0EF26BD1EC0002AA2EF /* IOHIDDevice+FeatureReport.swift in Sources */,
 				139663D226F6540A00EC6AB7 /* SSPerKeyProperties.swift in Sources */,

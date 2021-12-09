@@ -10,14 +10,12 @@
 import IOKit.hid
 import Combine
 
-public class PrismDriver: ObservableObject {
+public final class PrismDriver: NSObject {
 
     // MARK: Public
 
     public static let shared: PrismDriver = PrismDriver()
-
-    @Published public var selectedDevice: SSDevice?
-    @Published public var devices = [SSDevice]()
+    public var deviceSubject: PassthroughSubject<SSDevice, Never> = .init()
 
     // MARK: Protected
 
@@ -27,7 +25,7 @@ public class PrismDriver: ObservableObject {
 
     private var monitoringThread: Thread?
 
-    private init() {}
+    private override init() {}
 
     public func start() {
         if monitoringThread == nil {
@@ -70,7 +68,7 @@ public class PrismDriver: ObservableObject {
         do {
             let device = try SSDevice(device: rawDevice)
             DispatchQueue.main.async {
-                self.devices.append(device)
+                self.deviceSubject.send(device)
             }
         } catch {
             Log.error("\(error)")
@@ -81,9 +79,8 @@ public class PrismDriver: ObservableObject {
         do {
             let device = try SSDevice(device: rawDevice)
             DispatchQueue.main.async {
-                self.devices.removeAll { dev in
-                    dev == device
-                }
+//                self.deviceSubject.send(device)
+                // TODO: Notify when a device is removed.
             }
         } catch {
             Log.error("\(error)")

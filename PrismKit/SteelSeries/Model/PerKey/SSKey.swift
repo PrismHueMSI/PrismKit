@@ -8,8 +8,9 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
-public final class SSKey: NSObject, ObservableObject {
+public final class SSKey: NSObject {
     public static let empty = SSKey(name: "", region: 0, keycode: 0)
 
     // MARK: The region of key
@@ -40,11 +41,11 @@ public final class SSKey: NSObject, ObservableObject {
 
     // MARK: Main color
 
-    public var main = RGBColor(red: 1.0, green: 0.0, blue: 0.0)
+    public var main = RGB(red: 1.0, green: 0.0, blue: 0.0)
 
     // MARK: Rest/Active color
 
-    public var active = RGBColor()
+    public var active = RGB()
 
     // MARK: Mode of the key
 
@@ -52,8 +53,8 @@ public final class SSKey: NSObject, ObservableObject {
         didSet {
             self.effect = nil
             self.duration = 0x012c
-            self.main = RGBColor()
-            self.active = RGBColor()
+            self.main = RGB()
+            self.active = RGB()
         }
     }
 
@@ -79,6 +80,20 @@ public final class SSKey: NSObject, ObservableObject {
             case .disabled: return "Disabled"
             }
         }
+    }
+}
+
+extension SSKey {
+    public override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? SSKey else { return false }
+        return region == other.region && keycode == other.keycode
+    }
+
+    public override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(region)
+        hasher.combine(keycode)
+        return hasher.finalize()
     }
 }
 

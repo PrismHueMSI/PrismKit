@@ -7,12 +7,12 @@
 
 import Foundation
 
-extension SSPerKeyProperties {
+public extension SSPerKeyProperties {
     static let packageSize = 0x20c
 
     // MARK: GS65 and PerKey - Region keys
 
-    public static let regions: [UInt8] = [
+    static let regions: [UInt8] = [
         0x18,   // esc (modifiers)
         0x2a,   // a (alphanums)
         0x0b,   // enter (enter)
@@ -21,7 +21,7 @@ extension SSPerKeyProperties {
 
     // MARK: GS65 and PerKey - Modifier Keys
 
-    public static let modifiers: [UInt8] = [
+    static let modifiers: [UInt8] = [
         0x29,   // backspace
         0x2a,   // tab
         0x2b,   // spacebar
@@ -50,7 +50,7 @@ extension SSPerKeyProperties {
 
     // MARK: GS65 and PerKey - Alphanums Keys
 
-    public static let alphanums: [UInt8] = [
+    static let alphanums: [UInt8] = [
         0x04,   // b
         0x05,   // c
         0x06,   // d
@@ -97,7 +97,7 @@ extension SSPerKeyProperties {
 
     // MARK: GS65 and PerKey - Enter Keys
 
-    public static let enter: [UInt8] = [
+    static let enter: [UInt8] = [
         0x28,   // backslash
         0x31,   // NULL
         0x32,   // backslash (next to spacebar)
@@ -113,7 +113,7 @@ extension SSPerKeyProperties {
 
     // MARK: PerKey - Special keys
 
-    public static let special: [UInt8] = [
+    static let special: [UInt8] = [
         0x40,   // F8
         0x41,   // F9
         0x42,   // F10
@@ -154,7 +154,7 @@ extension SSPerKeyProperties {
 
     // MARK: GS65 Special keys, similar to per key but less keys
 
-    public static let specialGS65: [UInt8] = [
+    static let specialGS65: [UInt8] = [
         0x40,   // F8
         0x41,   // F9
         0x42,   // F10
@@ -176,16 +176,16 @@ extension SSPerKeyProperties {
         0x52    // NULL
     ]
 
-    public static let perKeyGS65KeyMap: [[CGFloat]] = [
+    static let perKeyGS65KeyMap: [[CGFloat]] = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [0.50, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.50, 1],
         [0.75, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.25, 1],
-        [1.25, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.75, 1],
-        [1.50, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.50, 1, 1],
-        [1.25, 1, 1, 4.75, 1, 1, 1, 1, 1, 1, 1]
+        [1.25, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.90, 1],
+        [1.58, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.58, 1, 1],
+        [1.25, 1, 1, 5.40, 1, 1, 1, 1, 1, 1, 1]
     ]
 
-    public static let perKeyGS65KeyNames: [[String]] = [
+    static let perKeyGS65KeyNames: [[String]] = [
         ["ESC", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "PRT", "DEL"],
         ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "\u{27f5}", "\u{2302}"],
         ["\u{21B9}", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "\u{25b2}"],
@@ -194,7 +194,7 @@ extension SSPerKeyProperties {
         ["CTRL", "WIN", "ALT", "\u{2423}", "\\", "ALT", "FN", "CTRL", "\u{2190}", "\u{2193}", "\u{2192}"]
     ]
 
-    public static let perKeyGS65RegionKeyCodes: [[(UInt8, UInt8)]] = [
+    static let perKeyGS65RegionKeyCodes: [[(UInt8, UInt8)]] = [
         [(0x18, 0x18),(0x2a, 0x27),(0x2a, 0x3A),(0x2a, 0x3B),(0x2a, 0x3C),(0x2a, 0x3D),(0x2a, 0x3E),(0x24, 0x24),(0x24, 0x40),(0x24, 0x41),(0x24, 0x42),(0x24, 0x43),(0x24, 0x44),(0x24, 0x45),(0x24, 0x4B)],
         [(0x18, 0x34),(0x2a, 0x1D),(0x2a, 0x1E),(0x2a, 0x1F),(0x2a, 0x20),(0x2a, 0x21),(0x2a, 0x22),(0x2a, 0x23),(0x2a, 0x24),(0x2a, 0x25),(0x2a, 0x26),(0x18, 0x2C),(0x18, 0x2D),(0x18, 0x29),(0x24, 0x49)],
         [(0x18, 0x2A),(0x2a, 0x13),(0x2a, 0x19),(0x2a, 0x07),(0x2a, 0x14),(0x2a, 0x16),(0x2a, 0x1B),(0x2a, 0x17),(0x2a, 0x0B),(0x2a, 0x11),(0x2a, 0x12),(0x18, 0x2E),(0x18, 0x2F),(0x0b, 0x28),(0x24, 0x4A)],
@@ -203,7 +203,7 @@ extension SSPerKeyProperties {
         [(0x18, 0x65),(0x18, 0xE2),(0x18, 0xE1),(0x18, 0x2B),(0x0b, 0x32),(0x18, 0xE5),(0x18, 0xE6),(0x18, 0xE3),(0x24, 0x4F),(0x24, 0x50),(0x24, 0x4E)],
     ]
 
-    public static let perKeyMap: [[CGFloat]] = [
+    static let perKeyMap: [[CGFloat]] = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1.25, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.75, 1, 1, 1, 1],
         [1.50, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.50, 1, 1, 1],
@@ -212,7 +212,7 @@ extension SSPerKeyProperties {
         [2, 1, 1, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     ]
 
-    public static let perKeyNames: [[String]] = [
+    static let perKeyNames: [[String]] = [
         ["ESC", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "PRT", "SCR", "BRK", "INS", "DEL", "\u{25b2}", "\u{25bc}"],
         ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "\u{27f5}", "NUM\nLOCK", "/", "*", "-"],
         ["\u{21B9}", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "7", "8", "9"],
@@ -221,7 +221,7 @@ extension SSPerKeyProperties {
         ["CTRL", "FN", "ALT", "\u{2423}", "\\", "ALT", "WIN", "CTRL", "\u{2190}", "\u{2193}", "\u{2192}", "0", ".", "ENTER"]
     ]
 
-    public static let perKeyRegionKeyCodes: [[(UInt8, UInt8)]] = [
+    static let perKeyRegionKeyCodes: [[(UInt8, UInt8)]] = [
         [(0x18, 0x18),(0x2a, 0x27),(0x2a, 0x3A),(0x2a, 0x3B),(0x2a, 0x3C),(0x2a, 0x3D),(0x2a, 0x3E),(0x24, 0x24),(0x24, 0x40),(0x24, 0x41),(0x24, 0x42),(0x24, 0x43),(0x24, 0x44),(0x24, 0x45),(0x24, 0x46),(0x24, 0x47),(0x24, 0x48),(0x24, 0x4B),(0x24, 0x4A),(0x24, 0x4D)],
         [(0x18, 0x34),(0x2a, 0x1D),(0x2a, 0x1E),(0x2a, 0x1F),(0x2a, 0x20),(0x2a, 0x21),(0x2a, 0x22),(0x2a, 0x23),(0x2a, 0x24),(0x2a, 0x25),(0x2a, 0x26),(0x18, 0x2C),(0x18, 0x2D),(0x18, 0x29),(0x24, 0x52),(0x24, 0x53),(0x24, 0x54),(0x24, 0x55)],
         [(0x18, 0x2A),(0x2a, 0x13),(0x2a, 0x19),(0x2a, 0x07),(0x2a, 0x14),(0x2a, 0x16),(0x2a, 0x1B),(0x2a, 0x17),(0x2a, 0x0B),(0x2a, 0x11),(0x2a, 0x12),(0x18, 0x2E),(0x18, 0x2F),(0x0b, 0x28),(0x24, 0x5E),(0x24, 0x5F),(0x24, 0x60)],

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class RGBColor: NSObject, NSCopying, Codable {
+public class RGB: NSObject, NSCopying, Codable {
     public var red: CGFloat {
         didSet { red.clamped(min: 0.0, max: 1.0) }
     }
@@ -68,11 +68,11 @@ public class RGBColor: NSObject, NSCopying, Codable {
     }
 
     public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = RGBColor(red: red, green: green, blue: blue, alpha: alpha)
+        let copy = RGB(red: red, green: green, blue: blue, alpha: alpha)
         return copy
     }
 
-    public func delta(target: RGBColor, duration: UInt16) -> RGBColor {
+    public func delta(target: RGB, duration: UInt16) -> RGB {
         var duration = duration
         if duration < 0x21 {
             duration = 0x21
@@ -88,10 +88,10 @@ public class RGBColor: NSObject, NSCopying, Codable {
         if deltaG < 0.0 { deltaG += 1 }
         if deltaB < 0.0 { deltaB += 1 }
 
-        return RGBColor(red: deltaR, green: deltaG, blue: deltaB)
+        return RGB(red: deltaR, green: deltaG, blue: deltaB)
     }
 
-    public func undoDelta(startColor: RGBColor, duration: UInt16) -> RGBColor {
+    public func undoDelta(startColor: RGB, duration: UInt16) -> RGB {
         var duration = duration
         if duration < 0x21 {
             duration = 0x21
@@ -119,7 +119,7 @@ public class RGBColor: NSObject, NSCopying, Codable {
 
         valueB += startColor.blue
 
-        return RGBColor(red: valueR, green: valueG, blue: valueB)
+        return RGB(red: valueR, green: valueG, blue: valueB)
     }
 }
 

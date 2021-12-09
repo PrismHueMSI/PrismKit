@@ -12,7 +12,7 @@ import Combine
 
 public final class SSKeyEffect: NSObject, ObservableObject {
     public let identifier: UInt8
-    public var start = RGBColor()
+    public var start = RGB()
     public var transitions: [SSPerKeyTransition]
     public var duration: UInt16 = 0x12c
     public var waveActive = false {
@@ -34,7 +34,7 @@ public final class SSKeyEffect: NSObject, ObservableObject {
     public init(identifier: UInt8, transitions: [SSPerKeyTransition]) {
         self.identifier = identifier
         self.transitions = transitions
-        self.start = transitions.first?.color ?? RGBColor()
+        self.start = transitions.first?.color ?? RGB()
         waveActive = false
     }
 
@@ -50,10 +50,10 @@ public final class SSKeyEffect: NSObject, ObservableObject {
     }
 
     public class SSPerKeyTransition: NSObject, Codable {
-        public var color = RGBColor()
+        public var color = RGB()
         public var position: CGFloat = 0x21 / 0xBB8
 
-        public init(color: RGBColor, position: CGFloat) {
+        public init(color: RGB, position: CGFloat) {
             self.color = color
             self.position = position
         }
@@ -118,7 +118,7 @@ extension SSKeyEffect: Codable {
         let identifier = try container.decode(UInt8.self, forKey: .identifier)
         let transitions = try container.decode([SSPerKeyTransition].self, forKey: .transitions)
         self.init(identifier: identifier, transitions: transitions)
-        self.start = try container.decode(RGBColor.self, forKey: .start)
+        self.start = try container.decode(RGB.self, forKey: .start)
         self.waveActive = try container.decode(Bool.self, forKey: .waveActive)
         self.direction = SSPerKeyDirection(rawValue: try container.decode(UInt8.self, forKey: .direction)) ?? .x
         self.control = SSPerKeyControl(rawValue: try container.decode(UInt8.self, forKey: .control)) ?? .inward
