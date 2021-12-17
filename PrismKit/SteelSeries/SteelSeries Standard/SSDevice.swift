@@ -54,7 +54,7 @@ public class SSDevice {
     }
 }
 
-extension SSDevice: Hashable, Equatable {
+extension SSDevice: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(device)
     }

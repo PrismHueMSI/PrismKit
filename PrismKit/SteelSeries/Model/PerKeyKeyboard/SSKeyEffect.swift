@@ -28,7 +28,7 @@ public final class SSKeyEffect: NSObject, ObservableObject {
     }
     public var direction = SSPerKeyDirection.xy
     public var control = SSPerKeyControl.inward
-    public var origin = PrismPoint()
+    public var origin = SSPoint()
     public var pulse: UInt16 = 100
 
     public init(identifier: UInt8, transitions: [SSPerKeyTransition]) {
@@ -36,6 +36,11 @@ public final class SSKeyEffect: NSObject, ObservableObject {
         self.transitions = transitions
         self.start = transitions.first?.color ?? RGB()
         waveActive = false
+    }
+
+    public struct SSPoint: Equatable, Codable {
+        var x = 0
+        var y = 0
     }
 
     public enum SSPerKeyDirection: UInt8 {
@@ -122,7 +127,7 @@ extension SSKeyEffect: Codable {
         self.waveActive = try container.decode(Bool.self, forKey: .waveActive)
         self.direction = SSPerKeyDirection(rawValue: try container.decode(UInt8.self, forKey: .direction)) ?? .x
         self.control = SSPerKeyControl(rawValue: try container.decode(UInt8.self, forKey: .control)) ?? .inward
-        self.origin = try container.decode(PrismPoint.self, forKey: .origin)
+        self.origin = try container.decode(SSPoint.self, forKey: .origin)
         self.pulse = try container.decode(UInt16.self, forKey: .pulse)
         self.duration = try container.decode(UInt16.self, forKey: .duration)
     }

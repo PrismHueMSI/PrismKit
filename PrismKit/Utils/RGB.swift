@@ -8,35 +8,31 @@
 
 import Foundation
 
-public class RGB: NSObject, NSCopying, Codable {
-    public var red: CGFloat {
+public struct RGB: Codable {
+    public var red: CGFloat = 0 {
         didSet { red.clamped(min: 0.0, max: 1.0) }
     }
 
-    public var green: CGFloat {
+    public var green: CGFloat = 0 {
         didSet { green.clamped(min: 0.0, max: 1.0) }
     }
 
-    public var blue: CGFloat {
+    public var blue: CGFloat = 0 {
         didSet { blue.clamped(min: 0.0, max: 1.0) }
     }
 
-    public var alpha: CGFloat {
+    public var alpha: CGFloat = 1 {
         didSet { alpha.clamped(min: 0.0, max: 1.0) }
     }
 
-    public convenience override init() {
-        self.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-    }
-
-    public init(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) {
+    public init(red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 1.0) {
         self.red = CGFloat(min(max(red, 0.0), 1.0))
         self.green = CGFloat(min(max(green, 0.0), 1.0))
         self.blue = CGFloat(min(max(blue, 0.0), 1.0))
         self.alpha = CGFloat(min(max(alpha, 0.0), 1.0))
     }
 
-    public convenience init(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8 = 255) {
+    public init(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8 = 255) {
         let rClamped = CGFloat(min(max(red, 0), 255))
         let gClamped = CGFloat(min(max(green, 0), 255))
         let bClamped = CGFloat(min(max(blue, 0), 255))
@@ -47,14 +43,14 @@ public class RGB: NSObject, NSCopying, Codable {
                   alpha: aClamped / 255.0)
     }
 
-    public convenience init(red: Int, green: Int, blue: Int, alpha: Int = 255) {
+    public init(red: Int, green: Int, blue: Int, alpha: Int = 255) {
         self.init(red: UInt8(red),
                   green: UInt8(green),
                   blue: UInt8(blue),
                   alpha: UInt8(alpha))
     }
 
-    public convenience init(hexString: String) {
+    public init(hexString: String) {
         let hexString = hexString
         guard let hexInt = Int(hexString, radix: 16) else {
             self.init(red: 1.0, green: 1.0, blue: 1.0)
@@ -67,59 +63,19 @@ public class RGB: NSObject, NSCopying, Codable {
                   alpha: 1.0)
     }
 
-    public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = RGB(red: red, green: green, blue: blue, alpha: alpha)
-        return copy
+}
+
+extension RGB: Hashable {
+    public static func == (lhs: RGB, rhs: RGB) -> Bool {
+        return lhs.red == rhs.red &&
+        lhs.green == rhs.green &&
+        lhs.blue == rhs.blue
     }
 
-    public func delta(target: RGB, duration: UInt16) -> RGB {
-        var duration = duration
-        if duration < 0x21 {
-            duration = 0x21
-        }
-
-        let divisible: CGFloat = CGFloat(duration * 16) / 0xff
-        var deltaR = CGFloat(target.red - self.red) / divisible
-        var deltaG = CGFloat(target.green - self.green) / divisible
-        var deltaB = CGFloat(target.blue - self.blue) / divisible
-
-        // Handle underflow
-        if deltaR < 0.0 { deltaR += 1 }
-        if deltaG < 0.0 { deltaG += 1 }
-        if deltaB < 0.0 { deltaB += 1 }
-
-        return RGB(red: deltaR, green: deltaG, blue: deltaB)
-    }
-
-    public func undoDelta(startColor: RGB, duration: UInt16) -> RGB {
-        var duration = duration
-        if duration < 0x21 {
-            duration = 0x21
-        }
-
-        var valueR = self.red * CGFloat(duration) / 16
-        var valueG = self.green * CGFloat(duration) / 16
-        var valueB = self.blue * CGFloat(duration) / 16
-
-        if valueR > 1.0 {
-            valueR = ((self.red - 1.0) * CGFloat(duration) / 16)
-        }
-
-        valueR += startColor.red
-
-        if valueG > 1.0 {
-            valueG = ((self.green - 1.0) * CGFloat(duration) / 16)
-        }
-
-        valueG += startColor.green
-
-        if valueB > 1.0 {
-            valueB = ((self.blue - 1.0) * CGFloat(duration) / 16)
-        }
-
-        valueB += startColor.blue
-
-        return RGB(red: valueR, green: valueG, blue: valueB)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(red)
+        hasher.combine(green)
+        hasher.combine(blue)
     }
 }
 

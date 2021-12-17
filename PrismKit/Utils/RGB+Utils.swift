@@ -8,28 +8,6 @@
 import Foundation
 
 extension RGB {
-    public override func isEqual(_ object: Any?) -> Bool {
-        if let object = object as? RGB {
-            return red == object.red &&
-                green == object.green &&
-                blue == object.blue &&
-                alpha == object.alpha
-        }
-
-        return false
-    }
-
-    public override var hash: Int {
-        var hasher = Hasher()
-        hasher.combine(red)
-        hasher.combine(green)
-        hasher.combine(blue)
-        hasher.combine(alpha)
-        return hasher.finalize()
-    }
-}
-
-extension RGB {
     public var redUInt: UInt8 {
         return UInt8(round(red * 255))
     }
@@ -73,4 +51,55 @@ extension RGB {
     public static func alphaOverlay(from src: CGFloat, to dest: CGFloat, alpha: CGFloat) -> CGFloat {
         return (1 - alpha) * dest + alpha * src
     }
+
+    public static func delta(source: RGB, target: RGB, duration: UInt16) -> RGB {
+        var duration = duration
+        if duration < 0x21 {
+            duration = 0x21
+        }
+
+        let divisible: CGFloat = CGFloat(duration * 16) / 0xff
+        var deltaR = CGFloat(target.red - source.red) / divisible
+        var deltaG = CGFloat(target.green - source.green) / divisible
+        var deltaB = CGFloat(target.blue - source.blue) / divisible
+
+        // Handle underflow
+        if deltaR < 0.0 { deltaR += 1.0 }
+        if deltaG < 0.0 { deltaG += 1.0 }
+        if deltaB < 0.0 { deltaB += 1.0 }
+
+        return RGB(red: deltaR, green: deltaG, blue: deltaB)
+    }
+
+    public static func undoDelta(base: RGB, target: RGB , duration: UInt16) -> RGB {
+        var duration = duration
+        if duration < 0x21 {
+            duration = 0x21
+        }
+
+        var valueR = target.red * CGFloat(duration) / 16
+        var valueG = target.green * CGFloat(duration) / 16
+        var valueB = target.blue * CGFloat(duration) / 16
+
+        if valueR > 1.0 {
+            valueR = ((target.red - 1.0) * CGFloat(duration) / 16)
+        }
+
+        valueR += base.red
+
+        if valueG > 1.0 {
+            valueG = ((target.green - 1.0) * CGFloat(duration) / 16)
+        }
+
+        valueG += base.green
+
+        if valueB > 1.0 {
+            valueB = ((target.blue - 1.0) * CGFloat(duration) / 16)
+        }
+
+        valueB += base.blue
+
+        return RGB(red: valueR, green: valueG, blue: valueB)
+    }
+
 }

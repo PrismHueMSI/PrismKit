@@ -145,7 +145,7 @@ class SSPerKeyController: SSDeviceController {
 
                 // Calculate color difference
 
-                let colorDelta = transition.color.delta(target: nextTransition.color, duration: duration)
+                let colorDelta = RGB.delta(source: transition.color, target: nextTransition.color, duration: duration)
 
                 data.append([index == 0 ? effect.identifier : idx,
                              0x0,
