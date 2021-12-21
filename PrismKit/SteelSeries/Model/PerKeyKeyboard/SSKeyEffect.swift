@@ -10,11 +10,26 @@ import Foundation
 import Combine
 
 
-public final class SSKeyEffect: NSObject, ObservableObject {
-    public let identifier: UInt8
+public final class SSKeyEffect: NSObject {
+
+    // MARK: Identifier
+
+    public let id: UInt8
+
+    // MARK: Start color
+
     public var start = RGB()
+
+    // MARK: Transitions
+
     public var transitions: [SSPerKeyTransition]
+
+    // MARK: Duration
+
     public var duration: UInt16 = 0x12c
+
+    // MARK: Wave Settings
+
     public var waveActive = false {
         didSet {
             if !waveActive {
@@ -32,12 +47,14 @@ public final class SSKeyEffect: NSObject, ObservableObject {
     public var pulse: UInt16 = 100
 
     public init(identifier: UInt8, transitions: [SSPerKeyTransition]) {
-        self.identifier = identifier
+        self.id = identifier
         self.transitions = transitions
         self.start = transitions.first?.color ?? RGB()
         waveActive = false
     }
+}
 
+extension SSKeyEffect {
     public struct SSPoint: Equatable, Codable {
         var x = 0
         var y = 0
@@ -84,7 +101,7 @@ public extension SSKeyEffect {
     override func isEqual(_ object: Any?) -> Bool {
         guard let otherEffect = object as? SSKeyEffect else { return false }
         return
-            self.identifier == otherEffect.identifier &&
+            self.id == otherEffect.id &&
             self.start == otherEffect.start &&
             self.waveActive == otherEffect.waveActive &&
             self.direction == otherEffect.direction &&
@@ -97,7 +114,7 @@ public extension SSKeyEffect {
 
     override var hash: Int {
         var hasher = Hasher()
-        hasher.combine(identifier)
+        hasher.combine(id)
         hasher.combine(start)
         hasher.combine(waveActive)
         hasher.combine(direction)
@@ -134,7 +151,7 @@ extension SSKeyEffect: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(identifier, forKey: .identifier)
+        try container.encode(id, forKey: .identifier)
         try container.encode(start, forKey: .start)
         try container.encode(waveActive, forKey: .waveActive)
         try container.encode(direction.rawValue, forKey: .direction)

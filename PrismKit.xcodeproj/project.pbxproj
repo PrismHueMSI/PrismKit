@@ -33,7 +33,6 @@
 		13A39B5826F7139C00EA2DEE /* PrismKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F0D426BD1E21002AA2EF /* PrismKit.framework */; };
 		13A39B5F26F7147300EA2DEE /* SSPerKeyProperties+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A39B5E26F7147300EA2DEE /* SSPerKeyProperties+Data.swift */; };
 		13CB78B027584BAD00BC8F07 /* RGB+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CB78AF27584BAD00BC8F07 /* RGB+Utils.swift */; };
-		13CB78B227584CC600BC8F07 /* PrismPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CB78B127584CC600BC8F07 /* PrismPoint.swift */; };
 		13D6596A26F4FE8700C1D39A /* SSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D6596926F4FE8700C1D39A /* SSConstants.swift */; };
 /* End PBXBuildFile section */
 
@@ -106,7 +105,6 @@
 		13A39B5726F7139C00EA2DEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13A39B5E26F7147300EA2DEE /* SSPerKeyProperties+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SSPerKeyProperties+Data.swift"; sourceTree = "<group>"; };
 		13CB78AF27584BAD00BC8F07 /* RGB+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RGB+Utils.swift"; sourceTree = "<group>"; };
-		13CB78B127584CC600BC8F07 /* PrismPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrismPoint.swift; sourceTree = "<group>"; };
 		13D6596926F4FE8700C1D39A /* SSConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,7 +173,6 @@
 		1320F0F926BD1F2C002AA2EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				13CB78B127584CC600BC8F07 /* PrismPoint.swift */,
 				1320F10026BD1F2C002AA2EF /* CGPoint+Point.swift */,
 			);
 			path = Model;
@@ -409,7 +406,6 @@
 				139663D226F6540A00EC6AB7 /* SSPerKeyProperties.swift in Sources */,
 				139663C726F5040100EC6AB7 /* SSDevice.swift in Sources */,
 				13D6596A26F4FE8700C1D39A /* SSConstants.swift in Sources */,
-				13CB78B227584CC600BC8F07 /* PrismPoint.swift in Sources */,
 				1320F10826BD1F2C002AA2EF /* CGPoint+Point.swift in Sources */,
 				139663C926F505EA00EC6AB7 /* SSDeviceController.swift in Sources */,
 				1320F0F326BD1EC0002AA2EF /* PrismDriver.swift in Sources */,

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SSDeviceController {
-    func update(force: Bool)
+    func update(data: AnyObject?, force: Bool)
 }

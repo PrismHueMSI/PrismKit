@@ -34,19 +34,19 @@ class SSPerKeyController: SSDeviceController {
         }
     }
 
-    func update(force: Bool) {
+    func update(data: AnyObject?, force: Bool) {
         commandMutex.async {
-            let keysSelected = self.properties.keysSelected
-            guard keysSelected.count > 0 || force else { return }
+            let updateKeys = data as? [SSKey]
+ 
+            if updateKeys == nil && !force {
+                Log.error("Cannot update device: \(self.model) because there are no keys")
+                return
+            }
 
-            let updateModifiers = keysSelected.filter { $0.region == SSPerKeyProperties.regions[0] }
-                .count > 0 || force
-            let updateAlphanums = keysSelected.filter { $0.region == SSPerKeyProperties.regions[1] }
-                .count > 0 || force
-            let updateEnter = keysSelected.filter { $0.region == SSPerKeyProperties.regions[2] }
-                .count > 0 || force
-            let updateSpecial = keysSelected.filter { $0.region == SSPerKeyProperties.regions[3] }
-                .count > 0 || force
+            let updateModifiers = force || updateKeys!.filter { $0.region == SSPerKeyProperties.regions[0] }.count > 0
+            let updateAlphanums = force || updateKeys!.filter { $0.region == SSPerKeyProperties.regions[1] }.count > 0
+            let updateEnter = force || updateKeys!.filter { $0.region == SSPerKeyProperties.regions[2] }.count > 0
+            let updateSpecial = force || updateKeys!.filter { $0.region == SSPerKeyProperties.regions[3] }.count > 0
 
             // Update effects first
 
@@ -147,7 +147,7 @@ class SSPerKeyController: SSDeviceController {
 
                 let colorDelta = RGB.delta(source: transition.color, target: nextTransition.color, duration: duration)
 
-                data.append([index == 0 ? effect.identifier : idx,
+                data.append([index == 0 ? effect.id : idx,
                              0x0,
                              colorDelta.redUInt,
                              colorDelta.greenUInt,
@@ -256,7 +256,7 @@ class SSPerKeyController: SSDeviceController {
                              key.active.blueUInt,
                              UInt8(key.duration & 0x00ff),
                              UInt8(key.duration >> 8),
-                             key.effect?.identifier ?? 0,
+                             key.effect?.id ?? 0,
                              mode], count: 10)
             } else {
                 data.append([0x0,
