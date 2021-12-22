@@ -32,6 +32,7 @@
 		13A39B5626F7139C00EA2DEE /* PrismKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A39B5526F7139C00EA2DEE /* PrismKitTests.swift */; };
 		13A39B5826F7139C00EA2DEE /* PrismKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F0D426BD1E21002AA2EF /* PrismKit.framework */; };
 		13A39B5F26F7147300EA2DEE /* SSPerKeyProperties+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A39B5E26F7147300EA2DEE /* SSPerKeyProperties+Data.swift */; };
+		13C760662772C3D200977AA1 /* SSKeyStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C760652772C3D200977AA1 /* SSKeyStruct.swift */; };
 		13CB78B027584BAD00BC8F07 /* RGB+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CB78AF27584BAD00BC8F07 /* RGB+Utils.swift */; };
 		13D6596A26F4FE8700C1D39A /* SSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D6596926F4FE8700C1D39A /* SSConstants.swift */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,7 @@
 		13A39B5526F7139C00EA2DEE /* PrismKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKitTests.swift; sourceTree = "<group>"; };
 		13A39B5726F7139C00EA2DEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13A39B5E26F7147300EA2DEE /* SSPerKeyProperties+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SSPerKeyProperties+Data.swift"; sourceTree = "<group>"; };
+		13C760652772C3D200977AA1 /* SSKeyStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSKeyStruct.swift; sourceTree = "<group>"; };
 		13CB78AF27584BAD00BC8F07 /* RGB+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RGB+Utils.swift"; sourceTree = "<group>"; };
 		13D6596926F4FE8700C1D39A /* SSConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				1320F0FB26BD1F2C002AA2EF /* SSKeyEffect.swift */,
+				13C760652772C3D200977AA1 /* SSKeyStruct.swift */,
 				1320F0FF26BD1F2C002AA2EF /* SSKey.swift */,
 				139663CF26F64E0C00EC6AB7 /* SSPerKeyController.swift */,
 				139663D126F6540A00EC6AB7 /* SSPerKeyProperties.swift */,
@@ -411,6 +414,7 @@
 				1320F0F326BD1EC0002AA2EF /* PrismDriver.swift in Sources */,
 				1320F0F226BD1EC0002AA2EF /* IOHIDDevice+Write.swift in Sources */,
 				1320F0F126BD1EC0002AA2EF /* IOHIDDevice+GetProperty.swift in Sources */,
+				13C760662772C3D200977AA1 /* SSKeyStruct.swift in Sources */,
 				13A39B5F26F7147300EA2DEE /* SSPerKeyProperties+Data.swift in Sources */,
 				1320F0EE26BD1EC0002AA2EF /* RawDeviceProtocols.swift in Sources */,
 				1320F10326BD1F2C002AA2EF /* SSKeyEffect.swift in Sources */,

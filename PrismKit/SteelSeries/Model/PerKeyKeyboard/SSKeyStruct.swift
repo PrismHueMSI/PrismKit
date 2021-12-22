@@ -1,17 +1,14 @@
 //
-//  SSKey.swift
+//  SSKeyStruct.swift
 //  PrismKit
 //
-//  Created by Erik Bautista on 7/15/20.
-//  Copyright © 2020 ErrorErrorError. All rights reserved.
+//  Created by Erik Bautista on 12/21/21.
 //
 
 import Foundation
-import Combine
-import SwiftUI
 
-public final class SSKey: NSObject {
-    public static let empty = SSKey(name: "", region: 0, keycode: 0)
+public struct SSKeyStruct {
+    public static let empty = SSKeyStruct(name: "", region: 0, keycode: 0)
 
     // MARK: The region of key
 
@@ -23,17 +20,17 @@ public final class SSKey: NSObject {
 
     // MARK:
 
-    public var name: String
+    public let name: String
 
     // MARK:
 
-    public var effect: SSKeyEffect? {
-        didSet {
-            if let start = effect?.transitions.first?.color {
-                main = start
-            }
-        }
-    }
+//    public var effect: SSKeyEffect? {
+//        didSet {
+//            if let start = effect?.transitions.first?.color {
+//                main = start
+//            }
+//        }
+//    }
 
     // MARK: The duration of the effect
 
@@ -51,7 +48,7 @@ public final class SSKey: NSObject {
 
     public var mode = SSKeyModes.steady {
         didSet {
-            self.effect = nil
+//            self.effect = nil
             self.duration = 0x012c
             self.main = RGB()
             self.active = RGB()
@@ -83,21 +80,21 @@ public final class SSKey: NSObject {
     }
 }
 
-extension SSKey {
-    public override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? SSKey else { return false }
-        return region == other.region && keycode == other.keycode
-    }
-
-    public override var hash: Int {
-        var hasher = Hasher()
-        hasher.combine(region)
-        hasher.combine(keycode)
-        return hasher.finalize()
-    }
+extension SSKeyStruct {
+//    public override func isEqual(_ object: Any?) -> Bool {
+//        guard let other = object as? SSKeyStruct else { return false }
+//        return region == other.region && keycode == other.keycode
+//    }
+//
+//    public override var hash: Int {
+//        var hasher = Hasher()
+//        hasher.combine(region)
+//        hasher.combine(keycode)
+//        return hasher.finalize()
+//    }
 }
 
-extension SSKey: Codable {
+extension SSKeyStruct: Codable {
 //    private enum CodingKeys: CodingKey {
 //        case name, region, keycode, effect, duration, main, active, mode
 //    }
@@ -127,3 +124,4 @@ extension SSKey: Codable {
 //        try container.encode(mode, forKey: .mode)
 //    }
 }
+
