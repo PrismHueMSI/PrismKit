@@ -7,9 +7,6 @@
 
 class SSPerKeyController: SSDeviceController {
 
-    // MARK: Public Properties
-
-
     // MARK: Private Properties
 
     private let device: IOHIDDevice
@@ -22,35 +19,40 @@ class SSPerKeyController: SSDeviceController {
         self.model = model
         self.properties = properties
 
-        let keyboardKeyNames = model == .perKey ? SSPerKeyProperties.perKeyNames : SSPerKeyProperties.perKeyGS65KeyNames
-        let keycodeArray = model == .perKey ? SSPerKeyProperties.perKeyRegionKeyCodes : SSPerKeyProperties.perKeyGS65RegionKeyCodes
+        // MARK: This should be handled in the client side
+//        let keyboardKeyNames = model == .perKey ? SSPerKeyProperties.perKeyNames : SSPerKeyProperties.perKeyGS65KeyNames
+//        let keycodeArray = model == .perKey ? SSPerKeyProperties.perKeyRegionKeyCodes : SSPerKeyProperties.perKeyGS65RegionKeyCodes
 
-        for (rowIndex, row) in keycodeArray.enumerated() {
-            for (columnIndex, value) in row.enumerated() {
-                let keySymbol = keyboardKeyNames[rowIndex][columnIndex]
-                let key = SSKey(name: keySymbol, region: value.0, keycode: value.1)
-                properties.keys.append(key)
-            }
-        }
+//        for (rowIndex, row) in keycodeArray.enumerated() {
+//            for (columnIndex, value) in row.enumerated() {
+//                let keySymbol = keyboardKeyNames[rowIndex][columnIndex]
+//                let key = SSKey(name: keySymbol, region: value.0, keycode: value.1)
+//                properties.keys.append(key)
+//            }
+//        }
     }
 
-    func update(data: AnyObject?, force: Bool) {
+    /// Uploads data from an array of objects. In our case, you send keys and effects to update. Any keys not shown will be set to default.
+    /// Recommend to send all keys and manage state on client side.
+    ///
+    /// - Parameter data: [Array<SSKeyStruct>]
+    func update(data: Any, force: Bool) {
         commandMutex.async {
-            let updateKeys = data as? [SSKey]
- 
-            if updateKeys == nil && !force {
+            guard let updateKeys = data as? [SSKeyStruct] else {
                 Log.error("Cannot update device: \(self.model) because there are no keys")
                 return
             }
 
-            let updateModifiers = force || updateKeys!.filter { $0.region == SSPerKeyProperties.regions[0] }.count > 0
-            let updateAlphanums = force || updateKeys!.filter { $0.region == SSPerKeyProperties.regions[1] }.count > 0
-            let updateEnter = force || updateKeys!.filter { $0.region == SSPerKeyProperties.regions[2] }.count > 0
-            let updateSpecial = force || updateKeys!.filter { $0.region == SSPerKeyProperties.regions[3] }.count > 0
+            let effects = updateKeys.compactMap({ $0.effect })
+ 
+            let updateModifiers = force || updateKeys.filter { $0.region == SSPerKeyProperties.regions[0] }.count > 0
+            let updateAlphanums = force || updateKeys.filter { $0.region == SSPerKeyProperties.regions[1] }.count > 0
+            let updateEnter = force || updateKeys.filter { $0.region == SSPerKeyProperties.regions[2] }.count > 0
+            let updateSpecial = force || updateKeys.filter { $0.region == SSPerKeyProperties.regions[3] }.count > 0
 
             // Update effects first
 
-            var result = self.writeEffectsToKeyboard()
+            var result = self.writeEffectsToKeyboard(effects: effects)
             guard result == kIOReturnSuccess || result == kIOReturnNotFound else {
                 Log.error("Cannot update effect for \(self.model): \(String(cString: mach_error_string(result)))")
                 return
@@ -61,7 +63,8 @@ class SSPerKeyController: SSDeviceController {
             var lastByte: UInt8 = 0
             if updateModifiers {
                 lastByte = 0x2d
-                let result = self.writeKeysToKeyboard(region: SSPerKeyProperties.regions[0],
+                let result = self.writeKeysToKeyboard(keys: updateKeys,
+                                                      region: SSPerKeyProperties.regions[0],
                                                       keycodes: SSPerKeyProperties.modifiers)
                 if result != kIOReturnSuccess {
                     Log.error("Error sending feature report for modifiers; \(self.model): " +
@@ -72,7 +75,8 @@ class SSPerKeyController: SSDeviceController {
 
             if updateAlphanums {
                 lastByte = 0x08
-                let result = self.writeKeysToKeyboard(region: SSPerKeyProperties.regions[1],
+                let result = self.writeKeysToKeyboard(keys: updateKeys,
+                                                      region: SSPerKeyProperties.regions[1],
                                                       keycodes: SSPerKeyProperties.alphanums)
                 if result != kIOReturnSuccess {
                     Log.error("Error sending feature report for alphanums; \(self.model): " +
@@ -83,7 +87,8 @@ class SSPerKeyController: SSDeviceController {
 
             if updateEnter {
                 lastByte = 0x87
-                let result = self.writeKeysToKeyboard(region: SSPerKeyProperties.regions[2],
+                let result = self.writeKeysToKeyboard(keys: updateKeys,
+                                                      region: SSPerKeyProperties.regions[2],
                                                       keycodes: SSPerKeyProperties.enter)
                 if result != kIOReturnSuccess {
                     Log.error("Error sending feature report for enter key; \(self.model): " +
@@ -94,7 +99,8 @@ class SSPerKeyController: SSDeviceController {
 
             if updateSpecial {
                 lastByte = 0x44
-                let result = self.writeKeysToKeyboard(region: SSPerKeyProperties.regions[3],
+                let result = self.writeKeysToKeyboard(keys: updateKeys,
+                                                      region: SSPerKeyProperties.regions[3],
                                                       keycodes: self.model == .perKey ? SSPerKeyProperties.special : SSPerKeyProperties.specialGS65)
                 if result != kIOReturnSuccess {
                     Log.error("Error sending feature report for special; \(self.model): " +
@@ -112,8 +118,7 @@ class SSPerKeyController: SSDeviceController {
         }
     }
 
-    private func writeEffectsToKeyboard() -> IOReturn {
-        let effects = properties.effects
+    private func writeEffectsToKeyboard(effects: [SSKeyEffectStruct]) -> IOReturn {
         guard effects.count > 0 else {
             Log.debug("No available effects found for: \(self.model)")
             return kIOReturnNotFound
@@ -222,14 +227,14 @@ class SSPerKeyController: SSDeviceController {
         return device.write(data: data)
     }
 
-    private func writeKeysToKeyboard(region: UInt8, keycodes: [UInt8]) -> IOReturn {
+    private func writeKeysToKeyboard(keys: [SSKeyStruct], region: UInt8, keycodes: [UInt8]) -> IOReturn {
         var data = Data(capacity: SSPerKeyProperties.packageSize)
 
-        // This array contains only the usable keys
-        let keyboardKeys = properties.keys.filter { $0.region == region }
+        // This array contains only the usable keys for this region
+        let keyboardKeys = keys.filter { $0.region == region }
 
         for keyCode in [region] + keycodes {
-            if let key = keyboardKeys.filter({ $0.keycode == keyCode }).first {
+            if let key = keyboardKeys.filter({ $0.region == region && $0.keycode == keyCode }).first {
                 var mode: UInt8 = 0
                 switch key.mode {
                 case .steady:
@@ -247,7 +252,7 @@ class SSPerKeyController: SSDeviceController {
                 } else {
                     data.append([0x0, key.keycode], count: 2)
                 }
-                
+
                 data.append([key.main.redUInt,
                              key.main.greenUInt,
                              key.main.blueUInt,

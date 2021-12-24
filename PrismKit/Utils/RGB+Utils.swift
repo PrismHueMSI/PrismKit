@@ -101,5 +101,4 @@ extension RGB {
 
         return RGB(red: valueR, green: valueG, blue: valueB)
     }
-
 }

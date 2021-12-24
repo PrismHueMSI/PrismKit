@@ -18,11 +18,13 @@ public struct SSKeyStruct {
 
     public let keycode: UInt8
 
-    // MARK:
+    // MARK: Name of the key
 
     public let name: String
 
-    // MARK:
+    // MARK: Effect
+
+    public var effect: SSKeyEffectStruct?
 
 //    public var effect: SSKeyEffect? {
 //        didSet {
@@ -48,7 +50,7 @@ public struct SSKeyStruct {
 
     public var mode = SSKeyModes.steady {
         didSet {
-//            self.effect = nil
+            self.effect = nil
             self.duration = 0x012c
             self.main = RGB()
             self.active = RGB()
@@ -61,12 +63,13 @@ public struct SSKeyStruct {
         self.keycode = keycode
     }
 
-    public enum SSKeyModes: Int, Codable, CustomStringConvertible {
+    public enum SSKeyModes: Int, Codable, CustomStringConvertible, CaseIterable {
         case steady
         case colorShift
         case breathing
         case reactive
         case disabled
+        case mixed
 
         public var description: String {
             switch self {
@@ -75,53 +78,13 @@ public struct SSKeyStruct {
             case .breathing: return "Breathing"
             case .reactive: return "Reactive"
             case .disabled: return "Disabled"
+            case .mixed: return "Mixed"
             }
         }
     }
 }
 
-extension SSKeyStruct {
-//    public override func isEqual(_ object: Any?) -> Bool {
-//        guard let other = object as? SSKeyStruct else { return false }
-//        return region == other.region && keycode == other.keycode
-//    }
-//
-//    public override var hash: Int {
-//        var hasher = Hasher()
-//        hasher.combine(region)
-//        hasher.combine(keycode)
-//        return hasher.finalize()
-//    }
-}
+extension SSKeyStruct: Hashable {}
 
-extension SSKeyStruct: Codable {
-//    private enum CodingKeys: CodingKey {
-//        case name, region, keycode, effect, duration, main, active, mode
-//    }
-//
-//    public convenience init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        let name = try container.decode(String.self, forKey: .name)
-//        let region = try container.decode(UInt8.self, forKey: .region)
-//        let keycode = try container.decode(UInt8.self, forKey: .keycode)
-//        self.init(name: name, region: region, keycode: keycode)
-//        mode = try container.decode(SSKeyModes.self, forKey: .mode)
-//        effect = try container.decodeIfPresent(SSKeyEffect.self, forKey: .effect)
-//        duration = try container.decode(UInt16.self, forKey: .duration)
-//        main = try container.decode(RGBColor.self, forKey: .main)
-//        active = try container.decode(RGBColor.self, forKey: .active)
-//    }
-//
-//    public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(name, forKey: .name)
-//        try container.encode(region, forKey: .region)
-//        try container.encode(keycode, forKey: .keycode)
-//        try container.encode(effect, forKey: .effect)
-//        try container.encode(duration, forKey: .duration)
-//        try container.encode(main, forKey: .main)
-//        try container.encode(active, forKey: .active)
-//        try container.encode(mode, forKey: .mode)
-//    }
-}
+extension SSKeyStruct: Codable {}
 

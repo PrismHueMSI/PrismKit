@@ -47,7 +47,7 @@ public class SSDevice {
         return product ?? .unknown
     }
 
-    public func update(data: AnyObject? = nil, force: Bool) {
+    public func update(data: [Any], force: Bool) {
         if let controller = controller {
             controller.update(data: data, force: force)
         }
