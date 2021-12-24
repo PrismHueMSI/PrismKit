@@ -35,7 +35,7 @@ class SSPerKeyController: SSDeviceController {
     /// Uploads data from an array of objects. In our case, you send keys and effects to update. Any keys not shown will be set to default.
     /// Recommend to send all keys and manage state on client side.
     ///
-    /// - Parameter data: [Array<SSKeyStruct>]
+    /// - Parameter data: Array<SSKeyStruct>
     func update(data: Any, force: Bool) {
         commandMutex.async {
             guard let updateKeys = data as? [SSKeyStruct] else {
