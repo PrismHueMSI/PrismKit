@@ -127,7 +127,7 @@ class SSPerKeyController: SSDeviceController {
         for effect in effects {
             guard effect.transitions.count > 0 else {
                 // Must have at least one transition or will return error
-                Log.error("An effect has no transitions for \(model). Will not update keyboard with effect due to it can cause bricking keyboard.")
+                Log.error("An effect has no transitions for \(model). Will not update keyboard with no transitions due to it can cause bricking keyboard.")
                 return kIOReturnError
             }
 
@@ -136,8 +136,8 @@ class SSPerKeyController: SSDeviceController {
 
             let totalDuration = effect.duration
 
-            // Transitions - each transition will take 8 bytes
-            let transitions = effect.transitions
+            // Transitions - each transition will take 8 bytes, sort transitions based on their position
+            let transitions = effect.transitions.sorted(by: { $0.position < $1.position })
             for (index, transition) in transitions.enumerated() {
                 let idx = UInt8(index)
 
