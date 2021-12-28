@@ -22,7 +22,7 @@
 		13214A2F26BE241500997A7A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13214A2E26BE241500997A7A /* main.swift */; };
 		1334586626F3C10E001FBBD5 /* PrismKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F0D426BD1E21002AA2EF /* PrismKit.framework */; };
 		1334586726F3C10E001FBBD5 /* PrismKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F0D426BD1E21002AA2EF /* PrismKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		135796702776440400CADB6B /* SSKeyEffectStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357966F2776440400CADB6B /* SSKeyEffectStruct.swift */; };
+		135796702776440400CADB6B /* SSKeyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357966F2776440400CADB6B /* SSKeyEffect.swift */; };
 		139663C726F5040100EC6AB7 /* SSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139663C626F5040100EC6AB7 /* SSDevice.swift */; };
 		139663C926F505EA00EC6AB7 /* SSDeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139663C826F505EA00EC6AB7 /* SSDeviceController.swift */; };
 		139663CB26F5076200EC6AB7 /* SSModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139663CA26F5076200EC6AB7 /* SSModels.swift */; };
@@ -31,7 +31,7 @@
 		13A39B5626F7139C00EA2DEE /* PrismKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A39B5526F7139C00EA2DEE /* PrismKitTests.swift */; };
 		13A39B5826F7139C00EA2DEE /* PrismKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1320F0D426BD1E21002AA2EF /* PrismKit.framework */; };
 		13A39B5F26F7147300EA2DEE /* SSPerKeyProperties+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A39B5E26F7147300EA2DEE /* SSPerKeyProperties+Data.swift */; };
-		13C760662772C3D200977AA1 /* SSKeyStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C760652772C3D200977AA1 /* SSKeyStruct.swift */; };
+		13C760662772C3D200977AA1 /* SSKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C760652772C3D200977AA1 /* SSKey.swift */; };
 		13CB78B027584BAD00BC8F07 /* RGB+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CB78AF27584BAD00BC8F07 /* RGB+Utils.swift */; };
 		13D6596A26F4FE8700C1D39A /* SSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D6596926F4FE8700C1D39A /* SSConstants.swift */; };
 /* End PBXBuildFile section */
@@ -93,7 +93,7 @@
 		1320F11526BD22E5002AA2EF /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		13214A2C26BE241500997A7A /* PrismKitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PrismKitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13214A2E26BE241500997A7A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		1357966F2776440400CADB6B /* SSKeyEffectStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSKeyEffectStruct.swift; sourceTree = "<group>"; };
+		1357966F2776440400CADB6B /* SSKeyEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSKeyEffect.swift; sourceTree = "<group>"; };
 		139663C626F5040100EC6AB7 /* SSDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SSDevice.swift; path = "PrismKit/SteelSeries/SteelSeries Standard/SSDevice.swift"; sourceTree = SOURCE_ROOT; };
 		139663C826F505EA00EC6AB7 /* SSDeviceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDeviceController.swift; sourceTree = "<group>"; };
 		139663CA26F5076200EC6AB7 /* SSModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSModels.swift; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 		13A39B5526F7139C00EA2DEE /* PrismKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismKitTests.swift; sourceTree = "<group>"; };
 		13A39B5726F7139C00EA2DEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13A39B5E26F7147300EA2DEE /* SSPerKeyProperties+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SSPerKeyProperties+Data.swift"; sourceTree = "<group>"; };
-		13C760652772C3D200977AA1 /* SSKeyStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSKeyStruct.swift; sourceTree = "<group>"; };
+		13C760652772C3D200977AA1 /* SSKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSKey.swift; sourceTree = "<group>"; };
 		13CB78AF27584BAD00BC8F07 /* RGB+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RGB+Utils.swift"; sourceTree = "<group>"; };
 		13D6596926F4FE8700C1D39A /* SSConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -212,8 +212,8 @@
 		139663CE26F64DF500EC6AB7 /* PerKeyKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				1357966F2776440400CADB6B /* SSKeyEffectStruct.swift */,
-				13C760652772C3D200977AA1 /* SSKeyStruct.swift */,
+				1357966F2776440400CADB6B /* SSKeyEffect.swift */,
+				13C760652772C3D200977AA1 /* SSKey.swift */,
 				139663CF26F64E0C00EC6AB7 /* SSPerKeyController.swift */,
 				139663D126F6540A00EC6AB7 /* SSPerKeyProperties.swift */,
 				13A39B5E26F7147300EA2DEE /* SSPerKeyProperties+Data.swift */,
@@ -411,13 +411,13 @@
 				1320F0F326BD1EC0002AA2EF /* PrismDriver.swift in Sources */,
 				1320F0F226BD1EC0002AA2EF /* IOHIDDevice+Write.swift in Sources */,
 				1320F0F126BD1EC0002AA2EF /* IOHIDDevice+GetProperty.swift in Sources */,
-				13C760662772C3D200977AA1 /* SSKeyStruct.swift in Sources */,
+				13C760662772C3D200977AA1 /* SSKey.swift in Sources */,
 				13A39B5F26F7147300EA2DEE /* SSPerKeyProperties+Data.swift in Sources */,
 				1320F0EE26BD1EC0002AA2EF /* RawDeviceProtocols.swift in Sources */,
 				1320F0F026BD1EC0002AA2EF /* IOHIDManager+Configure.swift in Sources */,
 				139663D026F64E0C00EC6AB7 /* SSPerKeyController.swift in Sources */,
 				139663CB26F5076200EC6AB7 /* SSModels.swift in Sources */,
-				135796702776440400CADB6B /* SSKeyEffectStruct.swift in Sources */,
+				135796702776440400CADB6B /* SSKeyEffect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
