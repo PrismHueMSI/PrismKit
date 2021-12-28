@@ -7,7 +7,4 @@
 
 import Foundation
 
-public final class SSPerKeyProperties: SSDeviceProperties {
-//    public var keys = [SSKey]()
-//    public var effects = [SSKeyEffect]()
-}
+public final class SSPerKeyProperties: SSDeviceProperties {}

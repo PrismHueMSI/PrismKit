@@ -18,39 +18,49 @@ class SSPerKeyController: SSDeviceController {
         self.device = device
         self.model = model
         self.properties = properties
-
-        // MARK: This should be handled in the client side
-//        let keyboardKeyNames = model == .perKey ? SSPerKeyProperties.perKeyNames : SSPerKeyProperties.perKeyGS65KeyNames
-//        let keycodeArray = model == .perKey ? SSPerKeyProperties.perKeyRegionKeyCodes : SSPerKeyProperties.perKeyGS65RegionKeyCodes
-
-//        for (rowIndex, row) in keycodeArray.enumerated() {
-//            for (columnIndex, value) in row.enumerated() {
-//                let keySymbol = keyboardKeyNames[rowIndex][columnIndex]
-//                let key = SSKey(name: keySymbol, region: value.0, keycode: value.1)
-//                properties.keys.append(key)
-//            }
-//        }
     }
 
-    /// Uploads data from an array of objects. In our case, you send keys and effects to update. Any keys not shown will be set to default.
+    /// Uploads data from an array of objects. In our case, you send keys and effects to update. This asumes you are using
+    ///  [model]RegionKeyCodes  and all values are in place.
     /// Recommend to send all keys and manage state on client side.
     ///
     /// - Parameter data: Array<SSKeyStruct>
     func update(data: Any, force: Bool) {
         commandMutex.async {
-            guard let updateKeys = data as? [SSKeyStruct] else {
-                Log.error("Cannot update device: \(self.model) because there are no keys")
+            guard var updateKeys = data as? [SSKey] else {
+                Log.error("Cannot update device for: \(self.model) because there are no keys")
+                return
+            }
+ 
+            let keyCodeCount = self.model == .perKey ? SSPerKeyProperties.perKeyRegionKeyCodes : SSPerKeyProperties.perKeyGS65RegionKeyCodes
+            guard updateKeys.count == keyCodeCount.flatMap({ $0 }).count else {
+                Log.error("Data not matching keyCodes required for: \(self.model)")
                 return
             }
 
-            let effects = updateKeys.compactMap({ $0.effect })
- 
-            let updateModifiers = force || updateKeys.filter { $0.region == SSPerKeyProperties.regions[0] }.count > 0
-            let updateAlphanums = force || updateKeys.filter { $0.region == SSPerKeyProperties.regions[1] }.count > 0
-            let updateEnter = force || updateKeys.filter { $0.region == SSPerKeyProperties.regions[2] }.count > 0
-            let updateSpecial = force || updateKeys.filter { $0.region == SSPerKeyProperties.regions[3] }.count > 0
+            let updateModifiers = updateKeys.filter { $0.region == SSPerKeyProperties.regions[0] }.count > 0
+            let updateAlphanums = updateKeys.filter { $0.region == SSPerKeyProperties.regions[1] }.count > 0
+            let updateEnter = updateKeys.filter { $0.region == SSPerKeyProperties.regions[2] }.count > 0
+            let updateSpecial = updateKeys.filter { $0.region == SSPerKeyProperties.regions[3] }.count > 0
 
             // Update effects first
+
+            // First get effects
+            var effects = updateKeys.compactMap({ $0.effect }).uniqued()
+
+            // Now we generate an id for the effect.
+            for (index, _) in effects.enumerated() {
+                effects[index].id = UInt8(index + 1)
+            }
+
+            // Then we set the id from the effect to the keys.
+            for (index, _) in updateKeys.enumerated() {
+                if let effect = updateKeys[index].effect {
+                    if let id = effects.first(where: { effect.dataEqual(with: $0) })?.id {
+                        updateKeys[index].effect?.id = id
+                    }
+                }
+            }
 
             var result = self.writeEffectsToKeyboard(effects: effects)
             guard result == kIOReturnSuccess || result == kIOReturnNotFound else {
@@ -118,7 +128,7 @@ class SSPerKeyController: SSDeviceController {
         }
     }
 
-    private func writeEffectsToKeyboard(effects: [SSKeyEffectStruct]) -> IOReturn {
+    private func writeEffectsToKeyboard(effects: [SSKeyEffect]) -> IOReturn {
         guard effects.count > 0 else {
             Log.debug("No available effects found for: \(self.model)")
             return kIOReturnNotFound
@@ -227,7 +237,7 @@ class SSPerKeyController: SSDeviceController {
         return device.write(data: data)
     }
 
-    private func writeKeysToKeyboard(keys: [SSKeyStruct], region: UInt8, keycodes: [UInt8]) -> IOReturn {
+    private func writeKeysToKeyboard(keys: [SSKey], region: UInt8, keycodes: [UInt8]) -> IOReturn {
         var data = Data(capacity: SSPerKeyProperties.packageSize)
 
         // This array contains only the usable keys for this region
@@ -277,5 +287,12 @@ class SSPerKeyController: SSDeviceController {
         let sizeRemaining = SSPerKeyProperties.packageSize - data.count
         data.append([UInt8](repeating: 0, count: sizeRemaining), count: sizeRemaining)
         return device.sendFeatureReport(data: data)
+    }
+}
+
+private extension Sequence where Element: Hashable {
+    func uniqued() -> [Element] {
+        var set = Set<Element>()
+        return filter { set.insert($0).inserted }
     }
 }

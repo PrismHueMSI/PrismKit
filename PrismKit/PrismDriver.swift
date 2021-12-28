@@ -77,7 +77,7 @@ public final class PrismDriver: NSObject {
 
     private func remove(rawDevice: IOHIDDevice) {
         do {
-            let device = try SSDevice(device: rawDevice)
+            let _ = try SSDevice(device: rawDevice)
             DispatchQueue.main.async {
 //                self.deviceSubject.send(device)
                 // TODO: Notify when a device is removed.

@@ -9,11 +9,11 @@ import Foundation
 import Combine
 
 
-public final class SSKeyEffectStruct {
+public struct SSKeyEffect {
 
     // MARK: Identifier
-
-    public let id: UInt8
+    // If id = -1, that means the identifier has not been set yet.
+    public var id: UInt8
 
     // MARK: Transitions
 
@@ -45,15 +45,14 @@ public final class SSKeyEffectStruct {
     public var origin = SSPoint()
     public var pulse: UInt16 = 100
 
-    public init(identifier: UInt8, transitions: [SSPerKeyTransition]) {
-        self.id = identifier
+    public init(id: UInt8, transitions: [SSPerKeyTransition]) {
+        self.id = id
         self.transitions = transitions
         self.start = transitions.first?.color ?? RGB()
-        waveActive = false
     }
 }
 
-public extension SSKeyEffectStruct {
+public extension SSKeyEffect {
     enum SSPerKeyDirection: UInt8, CaseIterable, CustomStringConvertible, Codable {
         case xy = 0
         case x = 1
@@ -113,32 +112,42 @@ public extension SSKeyEffectStruct {
 
 // MARK: - Codable Extension
 
-extension SSKeyEffectStruct: Codable {}
+extension SSKeyEffect: Codable {}
 
 // MARK: - Hash Extension
 
-extension SSKeyEffectStruct: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(transitions)
-        hasher.combine(start)
-        hasher.combine(duration)
-        hasher.combine(waveActive)
-        hasher.combine(direction)
-        hasher.combine(control)
-        hasher.combine(pulse)
-        hasher.combine(origin)
+extension SSKeyEffect: Hashable {
+    func dataEqual(with effect: SSKeyEffect) -> Bool {
+        return self.start == effect.start &&
+        self.transitions == effect.transitions &&
+        self.waveActive == effect.waveActive &&
+        self.direction == effect.direction &&
+        self.control == effect.control &&
+        self.pulse == effect.pulse &&
+        self.duration == effect.duration &&
+        self.origin == effect.origin
     }
-
-    public static func == (lhs: SSKeyEffectStruct, rhs: SSKeyEffectStruct) -> Bool {
-        return lhs.id == rhs.id &&
-        lhs.transitions == rhs.transitions &&
-        lhs.start == rhs.start &&
-        lhs.duration == rhs.duration &&
-        lhs.waveActive == rhs.waveActive &&
-        lhs.direction == rhs.direction &&
-        lhs.control == rhs.control &&
-        lhs.pulse == rhs.pulse &&
-        lhs.origin == rhs.origin
-    }
+//    public func hash(into hasher: inout Hasher) {
+//        hasher.combine(id)
+//        hasher.combine(transitions)
+//        hasher.combine(start)
+//        hasher.combine(duration)
+//        hasher.combine(waveActive)
+//        hasher.combine(direction)
+//        hasher.combine(control)
+//        hasher.combine(pulse)
+//        hasher.combine(origin)
+//    }
+//
+//    public static func == (lhs: SSKeyEffect, rhs: SSKeyEffect) -> Bool {
+//        return lhs.id == rhs.id &&
+//        lhs.transitions == rhs.transitions &&
+//        lhs.start == rhs.start &&
+//        lhs.duration == rhs.duration &&
+//        lhs.waveActive == rhs.waveActive &&
+//        lhs.direction == rhs.direction &&
+//        lhs.control == rhs.control &&
+//        lhs.pulse == rhs.pulse &&
+//        lhs.origin == rhs.origin
+//    }
 }

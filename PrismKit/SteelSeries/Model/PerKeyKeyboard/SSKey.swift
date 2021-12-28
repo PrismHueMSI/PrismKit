@@ -1,5 +1,5 @@
 //
-//  SSKeyStruct.swift
+//  SSKey.swift
 //  PrismKit
 //
 //  Created by Erik Bautista on 12/21/21.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct SSKeyStruct {
-    public static let empty = SSKeyStruct(name: "", region: 0, keycode: 0)
+public struct SSKey {
+    public static let empty = SSKey(name: "", region: 0, keycode: 0)
 
     // MARK: The region of key
 
@@ -24,7 +24,7 @@ public struct SSKeyStruct {
 
     // MARK: Effect
 
-    public var effect: SSKeyEffectStruct?
+    public var effect: SSKeyEffect?
 
 //    public var effect: SSKeyEffect? {
 //        didSet {
@@ -33,7 +33,7 @@ public struct SSKeyStruct {
 //            }
 //        }
 //    }
-
+//
     // MARK: The duration of the effect
 
     public var duration: UInt16 = 0x012c
@@ -84,7 +84,7 @@ public struct SSKeyStruct {
     }
 }
 
-extension SSKeyStruct: Hashable {}
+extension SSKey: Hashable {}
 
-extension SSKeyStruct: Codable {}
+extension SSKey: Codable {}
 
