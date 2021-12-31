@@ -95,15 +95,15 @@ public extension SSKeyEffect {
     }
 
     struct SSPoint: Hashable, Codable {
-        public var x: UInt16 = 0
-        public var y: UInt16 = 0
+        public var x: CGFloat = 0
+        public var y: CGFloat = 0
 
         public init() {
             x = 0
             y = 0
         }
 
-        public init(x: UInt16, y: UInt16) {
+        public init(x: CGFloat, y: CGFloat) {
             self.x = x
             self.y = y
         }

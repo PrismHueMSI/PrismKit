@@ -193,10 +193,13 @@ class SSPerKeyController: SSDeviceController {
             if effect.waveActive {
                 let origin = effect.origin
 
-                data.append([UInt8(origin.x & 0x00ff),
-                             UInt8(origin.x >> 8),
-                             UInt8(origin.y & 0x00ff),
-                             UInt8(origin.y >> 8),
+                let originX = UInt16(origin.x * 0x105c)
+                let originY = UInt16(origin.y * 0x40d)
+
+                data.append([UInt8(originX & 0x00ff),
+                             UInt8(originX >> 8),
+                             UInt8(originY & 0x00ff),
+                             UInt8(originY >> 8),
                              effect.direction != .y ? 0x01 : 0x00,
                              0x00,
                              effect.direction != .x ? 0x01 : 0x00,
