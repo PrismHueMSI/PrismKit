@@ -292,6 +292,8 @@
 			dependencies = (
 			);
 			name = PrismKit;
+			packageProductDependencies = (
+			);
 			productName = PrismKit;
 			productReference = 1320F0D426BD1E21002AA2EF /* PrismKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -362,6 +364,8 @@
 				Base,
 			);
 			mainGroup = 1320F0CA26BD1E21002AA2EF;
+			packageReferences = (
+			);
 			productRefGroup = 1320F0D526BD1E21002AA2EF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -576,8 +580,10 @@
 		1320F0DD26BD1E21002AA2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = A6HC4Y86NJ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -590,8 +596,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.errorerrorerror.PrismKit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.errorerrorerror.prismkit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -603,8 +611,10 @@
 		1320F0DE26BD1E21002AA2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = A6HC4Y86NJ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -617,8 +627,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.errorerrorerror.PrismKit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.errorerrorerror.prismkit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

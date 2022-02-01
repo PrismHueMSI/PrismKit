@@ -7,15 +7,25 @@
 //
 // From https://github.com/Sherlouk/Codedeck/blob/master/Sources/HIDSwift/HIDDeviceMonitor.swift
 
-import IOKit.hid
+#if canImport(RxSwift)
+import RxSwift
+#else
 import Combine
+#endif
+
+import IOKit.hid
 
 public final class PrismDriver: NSObject {
 
     // MARK: Public
 
     public static let shared: PrismDriver = PrismDriver()
+
+    #if canImport(RxSwift)
+    public var deviceSubject: PublishSubject<SSDevice> = .init()
+    #else
     public var deviceSubject: PassthroughSubject<SSDevice, Never> = .init()
+    #endif
 
     // MARK: Protected
 
@@ -67,9 +77,13 @@ public final class PrismDriver: NSObject {
     private func add(rawDevice: IOHIDDevice) {
         do {
             let device = try SSDevice(device: rawDevice)
+            #if canImport(RxSwift)
+            self.deviceSubject.onNext(device)
+            #else
             DispatchQueue.main.async {
                 self.deviceSubject.send(device)
             }
+            #endif
         } catch {
             Log.error("\(error)")
         }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 public struct RGB: Codable {
     public var red: CGFloat = 0 {
@@ -63,6 +64,9 @@ public struct RGB: Codable {
                   alpha: 1.0)
     }
 
+    public var color: Color {
+        return Color(.sRGB, red: red, green: green, blue: blue, opacity: alpha)
+    }
 }
 
 extension RGB: Hashable {
